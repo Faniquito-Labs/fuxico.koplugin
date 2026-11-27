@@ -181,7 +181,7 @@ Igual, trocando "Neste trecho" por **"Como o capítulo começou"**: o primeiro p
 
 ## Configurações
 
-Ficam no menu nativo do KOReader, em **Ferramentas › Fuxico**, organizadas **por função**. Cada item mostra o estado atual numa linha embaixo, para não precisar entrar nele.
+Ficam no menu nativo do KOReader, em **Ferramentas › Fuxico**, organizadas **por função**. O menu nativo não tem uma segunda linha por item, então o estado atual aparece no próprio texto do item (por exemplo, "Avisar quando sumiu por: 30 páginas").
 
 ### Memória deste livro
 
