@@ -8,7 +8,7 @@ Fuxico é um plugin para o [KOReader](https://github.com/koreader/koreader) que 
 
 Feito em português do Brasil, para livros em português.
 
-**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador; falta testar num Kindle. Veja o [roteiro](docs/roteiro.md).
+**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador; falta testar num Kindle, seguindo o [checklist do teste no Kindle](docs/teste-no-kindle.md). Veja o [roteiro](docs/roteiro.md).
 
 ## Instalar (para testar)
 
@@ -54,6 +54,7 @@ Arquitetura completa em [docs/arquitetura.md](docs/arquitetura.md).
 - [Arquitetura](docs/arquitetura.md): modos de geração, onde os arquivos ficam, como o plugin conversa com o KOReader
 - [Formato da memória](docs/formato-memoria.md): o `memoria.json`, posição no texto e a chave do livro
 - [Base compartilhada](docs/base-compartilhada.md): ideia de um servidor com memórias prontas, direito autoral e privacidade
+- [Teste no Kindle](docs/teste-no-kindle.md): checklist do que conferir no aparelho antes de encerrar a etapa 1
 - [Teste com Dom Casmurro](docs/teste-dom-casmurro.md): comparação entre IAs que definiu o prompt
 - Prompts enviados à IA: [aos poucos (v3.3, padrão)](prompts/memoria-aos-poucos.md) e [livro inteiro (v2)](prompts/memoria-livro-inteiro.md)
 - [Roteiro](docs/roteiro.md): as etapas, da primeira função ao acabamento
