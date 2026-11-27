@@ -1,4 +1,4 @@
-"""Simula o gerador do Fuxico no modo "aos poucos" (prompt v3.1).
+"""Simula o gerador do Fuxico no modo "aos poucos" (prompt v3.3).
 
 Fica na mesma pasta que checar.py (na pasta do teste: scripts/). A IA é quem
 responde cada pedido; este script só monta os pedidos, checa e junta as respostas.
@@ -39,7 +39,10 @@ PROMPT_MD = achar_prompt()
 V3 = BASE / "v3"
 MEMORIA = V3 / "memoria.json"
 LOG = V3 / "log.json"
-LIM_ATE, LIM_BLOCO, LIM_FICHA, LIM_PRESENTES, LIM_LISTA = 150, 50, 30, 10, 30
+LIM_ATE, LIM_BLOCO, LIM_FICHA, LIM_PRESENTES, LIM_LISTA = 150, 50, 30, 13, 30
+LIM_LUGARES_PRESENTES = 3
+TIPOS = ("pessoa", "lugar")
+LIM_FIOS, LIM_FIO = 3, 15
 
 # reaproveita a lógica de nomes do checar.py (o main dele não roda no import)
 _spec = importlib.util.spec_from_file_location("checar", AQUI / "checar.py")
@@ -77,7 +80,7 @@ def memoria_vazia():
         "livro": {"titulo": "Dom Casmurro", "autor": "Machado de Assis", "idioma": "pt-BR",
                   "isbn": None, "chave": None, "impressoes": []},
         "geracao": {"modo": "nuvem", "servico": "claude", "modelo": "claude-opus-5-5",
-                    "prompt": "v3.1", "data": date.today().isoformat()},
+                    "prompt": "v3.3", "data": date.today().isoformat()},
         "blocos": [],
         "personagens": [],
     }
@@ -114,11 +117,11 @@ def lista_conhecidos(mem):
     for p in ps:  # mantém a ordem de entrada
         ap = ", ".join(apelidos_ate(p)) or "—"
         if id(p) in escolhidos:
-            linhas.append(f"- {p['id']} | {p['nome']} | apelidos: {ap} | {ultima_ficha(p)}")
+            linhas.append(f"- {p['id']} | {p['nome']} | {p.get('tipo', 'pessoa')} | apelidos: {ap} | {ultima_ficha(p)}")
         else:
-            outros.append(f"- {p['id']} | {p['nome']} | apelidos: {ap}")
+            outros.append(f"- {p['id']} | {p['nome']} | {p.get('tipo', 'pessoa')} | apelidos: {ap}")
     if outros:
-        linhas += ["", "Outros personagens (sem ficha):"] + outros
+        linhas += ["", "Outros personagens e lugares (sem ficha):"] + outros
     return "\n".join(linhas), len(outros)
 
 
@@ -130,10 +133,13 @@ def cmd_pedido(n):
     b = BLOCOS[n - 1]
     conhecidos, fora = lista_conhecidos(mem)
     resumo_ant = mem["blocos"][-1]["resumo_ate_aqui"] if mem["blocos"] else "(início do livro)"
+    fios_ant = mem["blocos"][-1].get("fios_soltos", []) if mem["blocos"] else []
+    fios_ant = "\n".join(f"- {f}" for f in fios_ant) or "(nenhum)"
     pedido = (modelo.replace("{{n}}", str(n)).replace("{{total}}", str(TOTAL))
               .replace("{{capitulo_inicial}}", b["capitulos"][0])
               .replace("{{capitulo_final}}", b["capitulos"][-1])
               .replace("{{resumo_ate_aqui_anterior}}", resumo_ant)
+              .replace("{{fios_soltos_anteriores}}", fios_ant)
               .replace("{{personagens_conhecidos}}", conhecidos)
               .replace("{{texto_do_bloco}}", b["texto"].strip()))
     texto = instr + "\n\n---\n\n" + pedido + "\n"
@@ -175,6 +181,15 @@ def problemas(n, r, mem):
             cont["limites"] += 1
         if k == 0:
             probs.append((campo, "está vazio"))
+    fios = r.get("fios_soltos") or []
+    if len(fios) > LIM_FIOS:
+        probs.append(("fios_soltos", f"tem {len(fios)} itens; o limite é {LIM_FIOS}"))
+        cont["limites"] += 1
+    for i, fio in enumerate(fios, 1):
+        k = nps(fio)
+        if k > LIM_FIO:
+            probs.append((f"fios_soltos (item {i})", f"tem {k} palavras; o limite é {LIM_FIO}"))
+            cont["limites"] += 1
     pres = r.get("presentes") or []
     if len(pres) > LIM_PRESENTES:
         probs.append(("presentes", f"tem {len(pres)} ids; o limite é {LIM_PRESENTES}"))
@@ -201,6 +216,9 @@ def problemas(n, r, mem):
             if not p.get("nome"):
                 probs.append((f"personagens_novos_ou_atualizados ({pid})",
                               f'traz o id "{pid}", que não está na lista, sem "nome"'))
+            if p.get("tipo") not in TIPOS:
+                probs.append((f"personagens_novos_ou_atualizados ({pid})",
+                              f'traz o id novo "{pid}" sem "tipo" válido ("pessoa" ou "lugar")'))
             # id novo com nome/apelido de alguém que já está na lista = duplicata
             for _, nm in nomes:
                 dono = nomes_exist.get(checar.norm(nm))
@@ -225,14 +243,22 @@ def problemas(n, r, mem):
                 probs.append((f"personagens_novos_ou_atualizados ({pid})",
                               f'cita "{nm}", que ainda não apareceu no texto'))
                 cont["spoiler_nome"] += 1
-    for campo in ("resumo_ate_aqui", "resumo_do_bloco"):
-        for nm in checar.nomes_no_texto(r.get(campo) or ""):
+    textos = [("resumo_ate_aqui", r.get("resumo_ate_aqui") or ""), ("resumo_do_bloco", r.get("resumo_do_bloco") or "")]
+    textos += [(f"fios_soltos (item {i})", fio) for i, fio in enumerate(fios, 1)]
+    for campo, texto in textos:
+        for nm in checar.nomes_no_texto(texto):
             if nm == "Dom":
                 continue
             pb = checar.primeiro_bloco_do_nome(nm)
             if pb is not None and pb > n:
                 probs.append((campo, f'cita "{nm}", que ainda não apareceu no texto'))
                 cont["spoiler_nome"] += 1
+    tipo_de = {pid: q.get("tipo", "pessoa") for pid, q in por_id.items()}
+    tipo_de.update({q.get("id", ""): q.get("tipo") for q in novos if q.get("id") not in por_id})
+    lugares = [pid for pid in pres if tipo_de.get(pid) == "lugar"]
+    if len(lugares) > LIM_LUGARES_PRESENTES:
+        probs.append(("presentes", f"tem {len(lugares)} lugares; o limite é {LIM_LUGARES_PRESENTES}"))
+        cont["limites"] += 1
     for pid in pres:
         if pid not in por_id and pid not in ids_resp:
             probs.append(("presentes", f'traz o id "{pid}", que não está na lista nem entre os novos'))
@@ -298,6 +324,7 @@ def cmd_incorporar(n):
         "capitulos": [b["capitulos"][0], b["capitulos"][-1]],
         "resumo_ate_aqui": r.get("resumo_ate_aqui", ""),
         "resumo_do_bloco": r.get("resumo_do_bloco", ""),
+        "fios_soltos": list(r.get("fios_soltos") or []),
         "presentes": list(r.get("presentes") or []),
         "checagem": {"spoiler_nome": cont["spoiler_nome"], "limites": cont["limites"], "refeito": refeito},
     })
@@ -306,7 +333,8 @@ def cmd_incorporar(n):
         pid = p["id"]
         alvo = por_id.get(pid)
         if alvo is None:
-            alvo = {"id": pid, "nome": p.get("nome") or pid, "desde_bloco": n, "apelidos": [], "fichas": []}
+            alvo = {"id": pid, "nome": p.get("nome") or pid, "tipo": p.get("tipo") or "pessoa",
+                    "desde_bloco": n, "apelidos": [], "fichas": []}
             mem["personagens"].append(alvo)
             por_id[pid] = alvo
         ja = {checar.norm(a["apelido"]) for a in alvo["apelidos"]} | {checar.norm(alvo["nome"])}

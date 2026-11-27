@@ -15,9 +15,9 @@ Feito em português do Brasil, para livros em português.
 | Função | Com memória | Sem memória (sem IA) |
 |---|---|---|
 | **Quem é esse?** (segurar o dedo num nome) | Ficha do personagem até o ponto atual, com apelidos | Primeira aparição e últimas menções do nome até a página atual |
-| **Previamente em…** | Resumo de tudo o que aconteceu até aqui | Não disponível |
-| **X-Ray do capítulo** | Personagens do trecho, com descrição | Nomes com letra maiúscula mais citados |
-| **Onde você parou** | Resumo do último trecho lido | O último parágrafo lido |
+| **O que rolou?** | Resumo do que aconteceu até aqui, na medida do tempo parado | O trecho de antes da página e os nomes mais citados |
+| **Quem tá na cena?** | Personagens do trecho, com descrição | Nomes próprios mais citados no capítulo |
+| **Onde eu parei?** | Onde você está no capítulo, quanto falta, resumo do trecho e suas últimas paradas | O mesmo, com o começo do capítulo no lugar do resumo |
 
 Detalhes em [docs/funcoes.md](docs/funcoes.md).
 
@@ -37,11 +37,12 @@ Arquitetura completa em [docs/arquitetura.md](docs/arquitetura.md).
 ## Documentação
 
 - [Funções](docs/funcoes.md): o que cada tela mostra, com e sem memória
+- [Design](docs/design.md): princípios visuais para e-ink e as peças de tela (gaveta, cartões, linha do tempo)
 - [Arquitetura](docs/arquitetura.md): modos de geração, onde os arquivos ficam, como o plugin conversa com o KOReader
 - [Formato da memória](docs/formato-memoria.md): o `memoria.json`, posição no texto e a chave do livro
 - [Base compartilhada](docs/base-compartilhada.md): ideia de um servidor com memórias prontas, direito autoral e privacidade
 - [Teste com Dom Casmurro](docs/teste-dom-casmurro.md): comparação entre IAs que definiu o prompt
-- Prompts enviados à IA: [aos poucos (v3.1, padrão)](prompts/memoria-aos-poucos.md) e [livro inteiro (v2)](prompts/memoria-livro-inteiro.md)
+- Prompts enviados à IA: [aos poucos (v3.3, padrão)](prompts/memoria-aos-poucos.md) e [livro inteiro (v2)](prompts/memoria-livro-inteiro.md)
 - [Roteiro](docs/roteiro.md): as etapas, da primeira função ao acabamento
 
 ## Privacidade
