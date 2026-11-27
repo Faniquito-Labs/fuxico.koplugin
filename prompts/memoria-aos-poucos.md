@@ -1,4 +1,4 @@
-# Prompt v3.2: memória aos poucos
+# Prompt v3.3: memória aos poucos
 
 Usado pelo gerador do Fuxico no modo padrão: **um pedido por bloco**, em ordem. Cada pedido recebe a memória até o bloco anterior e o texto do bloco novo, e devolve só a memória deste bloco, no formato de [formato-memoria.md](../docs/formato-memoria.md#o-que-a-ia-devolve-por-bloco).
 
@@ -18,6 +18,9 @@ Mudanças do v3.1, depois do [teste com *Dom Casmurro*](../docs/teste-dom-casmur
 
 Mudança do v3.2 (ainda não testada):
 - **Fios soltos:** um campo novo, `fios_soltos`, com até 3 frases curtas sobre o que está em aberto na história até o fim do bloco (promessas, dúvidas, conflitos sem resposta). Alimenta a seção "Fios soltos" do [O que rolou?](../docs/funcoes.md#o-que-rolou). A IA recebe os fios do bloco anterior e devolve a lista inteira atualizada: tira o que se resolveu, mantém o que segue aberto e acrescenta o que surgiu. Os fios passam pela mesma checagem de nomes dos resumos.
+
+Mudança do v3.3 (ainda não testada):
+- **Lugares:** a lista passa a ter pessoas e lugares, com um campo `tipo` ("pessoa" ou "lugar") em quem é novo. Alimenta o tipo mostrado no [Quem é esse?](../docs/funcoes.md#quem-é-esse) e a seção "Onde" do [Quem tá na cena?](../docs/funcoes.md#quem-tá-na-cena). Só entram lugares com nome no texto ou onde a cena acontece e que voltam a aparecer; os citados de passagem, não. `presentes` aceita até 10 pessoas e 3 lugares.
 
 O gerador troca os campos `{{...}}` antes de enviar. A parte de instruções é igual em todos os pedidos e pode ir como *system prompt* (e ser cacheada, onde o serviço permitir).
 
@@ -52,13 +55,15 @@ REGRA 3: OS CAMPOS
   - Só o que o texto deixou em aberto: uma promessa, uma dúvida, um plano, um conflito sem resposta. Não invente suspense que o texto não criou.
   - Escreva como está agora ("ainda não sabe", "prometeu", "continua sem resposta"), sem sugerir se, como ou quando vai se resolver.
   - Se não houver nada em aberto, devolva uma lista vazia.
-- "presentes": os "id" de quem importa neste bloco (no máximo 10), em ordem de importância.
-- "personagens_novos_ou_atualizados": só quem apareceu pela primeira vez ou de quem o leitor descobriu algo novo neste bloco. Quem não mudou não entra.
+- "presentes": os "id" de quem e do que importa neste bloco, em ordem de importância: no máximo 10 pessoas e 3 lugares.
+- "personagens_novos_ou_atualizados": pessoas e lugares. Só quem apareceu pela primeira vez ou de quem o leitor descobriu algo novo neste bloco. Quem não mudou não entra.
   - Quem entra na lista: pessoas com nome no texto, ou sem nome mas com papel no bloco (que falam, agem ou voltam a aparecer). Grupos ("os colegas"), multidões e figurantes de uma frase não entram.
+  - Quais lugares entram: lugares com nome no texto (uma cidade, um bairro, uma rua, uma casa ou fazenda com nome) ou o lugar onde uma cena acontece e que volta a aparecer. Lugares citados de passagem não entram.
+  - "tipo": "pessoa" ou "lugar". Só para quem é novo; quem já está na lista mantém o tipo.
   - Para quem já está na lista, use o mesmo "id" e não repita o "nome". Se a pessoa aparece com outra grafia ou outro nome, continua sendo ela: use o "id" existente e ponha a forma nova em "apelidos_novos".
   - Para quem é novo, crie um "id" curto, em minúsculas, sem acentos, com hífen no lugar de espaço (por exemplo "jose-dias"), e informe o "nome" exatamente como aparece no texto, com a grafia do texto. Se a pessoa não tem nome, o "nome" é a forma como o texto a chama (por exemplo "o pae de Bentinho").
   - "apelidos_novos": só apelidos e outras formas de chamar a pessoa que surgiram neste bloco, e só quando o texto deixa claro que são a mesma pessoa. Sobrenome não é apelido.
-  - "quem_e_ate_aqui": a ficha completa da pessoa até este bloco, em até 30 palavras. Reescreva a ficha inteira juntando o que se sabia antes e o que é novo, e condense: fique com o que identifica a pessoa e o essencial do que ela fez. Não vá só acrescentando.
+  - "quem_e_ate_aqui": a ficha completa até este bloco, em até 30 palavras. Para um lugar: o que é e o que aconteceu ali até aqui. Reescreva a ficha inteira juntando o que se sabia antes e o que é novo, e condense: fique com o que identifica a pessoa e o essencial do que ela fez. Não vá só acrescentando.
 
 FORMATO
 Responda só com um objeto JSON válido, sem nada antes ou depois. Cada texto em uma linha só.
@@ -70,7 +75,7 @@ Responda só com um objeto JSON válido, sem nada antes ou depois. Cada texto em
   "fios_soltos": ["...", "..."],
   "presentes": ["id", "..."],
   "personagens_novos_ou_atualizados": [
-    { "id": "...", "nome": "só se for novo", "apelidos_novos": ["..."], "quem_e_ate_aqui": "..." }
+    { "id": "...", "nome": "só se for novo", "tipo": "pessoa ou lugar, só se for novo", "apelidos_novos": ["..."], "quem_e_ate_aqui": "..." }
   ]
 }
 
@@ -81,6 +86,7 @@ ANTES DE RESPONDER, CONFIRA
 - Os fios_soltos são no máximo 3, cada um com no máximo 15 palavras, e nenhum dá pista do que vai acontecer?
 - Cada fato está no texto deste bloco ou na memória anterior?
 - Cada "id" de personagem já existente foi reaproveitado, sem criar duplicata?
+- Cada pessoa ou lugar novo tem "tipo"? Os presentes têm no máximo 10 pessoas e 3 lugares?
 - Escreva em português do Brasil atual, em frases simples, sem copiar frases do livro, mantendo os nomes de pessoas como aparecem no texto.
 ```
 
@@ -95,7 +101,7 @@ Resumo até aqui: {{resumo_ate_aqui_anterior}}
 Fios soltos até aqui:
 {{fios_soltos_anteriores}}
 
-Personagens conhecidos:
+Personagens e lugares conhecidos:
 {{personagens_conhecidos}}
 
 TEXTO DO BLOCO {{n}}:
@@ -106,18 +112,19 @@ TEXTO DO BLOCO {{n}}:
 
 - `{{resumo_ate_aqui_anterior}}`: o `resumo_ate_aqui` do bloco anterior. No bloco 1: `(início do livro)`.
 - `{{fios_soltos_anteriores}}`: os `fios_soltos` do bloco anterior, um por linha, começando com "- ". No bloco 1, ou se a lista estiver vazia: `(nenhum)`.
-- `{{personagens_conhecidos}}`: uma linha por personagem da lista única, no formato abaixo. No bloco 1: `(nenhum ainda)`.
+- `{{personagens_conhecidos}}`: uma linha por pessoa ou lugar da lista única, no formato abaixo, com o tipo. No bloco 1: `(nenhum ainda)`.
 
 ```
-- jose-dias | José Dias | apelidos: — | Agregado da casa há muitos anos, ...
-- capitu | Capitú | apelidos: Capitolina | Vizinha de Bentinho, ...
+- jose-dias | José Dias | pessoa | apelidos: — | Agregado da casa há muitos anos, ...
+- capitu | Capitú | pessoa | apelidos: Capitolina | Vizinha de Bentinho, ...
+- matacavalos | Matacavalos | lugar | apelidos: — | Rua onde fica a casa da família de Bentinho, ...
 ```
 
-  Se a lista passar de 30 personagens, os 30 com `desde_bloco` ou ficha mais recentes vão com a ficha. Os outros vão no fim, só com `id`, nome e apelidos, para a IA reconhecer quem volta e reaproveitar o `id`:
+  Se a lista passar de 30 pessoas e lugares, os 30 com `desde_bloco` ou ficha mais recentes vão com a ficha. Os outros vão no fim, só com `id`, nome e apelidos, para a IA reconhecer quem volta e reaproveitar o `id`:
 
 ```
-Outros personagens (sem ficha):
-- joao-da-costa | doutor João da Costa | apelidos: —
+Outros personagens e lugares (sem ficha):
+- joao-da-costa | doutor João da Costa | pessoa | apelidos: —
 ```
 
 ### Pedido de correção (só quando falha a checagem)

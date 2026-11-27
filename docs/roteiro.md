@@ -37,7 +37,8 @@ A primeira função, sem depender de nada externo.
 - [ ] Contador de uso no mês e limite mensal opcional
 - [x] Testar o prompt v3: rodar o modo aos poucos com *Dom Casmurro* e comparar com as rodadas do livro inteiro ([resultado](teste-dom-casmurro.md#rodada-3-prompt-v3-aos-poucos))
 - [x] Prompt v3.2: fios soltos ([prompt](../prompts/memoria-aos-poucos.md)), com o gerador do teste já preparado para o campo novo
-- [ ] Testar o prompt v3.2 (o v3.1 com fichas condensadas, quem entra na lista e personagens antigos sem ficha, mais os fios soltos) e a Gemini no modo aos poucos
+- [x] Prompt v3.3: lugares na lista, com `tipo` pessoa ou lugar, e o gerador do teste preparado para isso
+- [ ] Testar o prompt v3.3 (o v3.1 com fichas condensadas, quem entra na lista e personagens antigos sem ficha, mais os fios soltos do v3.2 e os lugares do v3.3) e a Gemini no modo aos poucos
 
 ## 3. Telas que usam a memória
 
@@ -46,7 +47,7 @@ A primeira função, sem depender de nada externo.
 - [ ] "Da última vez você leu…" e "Na sua última sessão", a partir das estatísticas do KOReader
 - [ ] Fios soltos no O que rolou?
 - [ ] Botão "Começo do capítulo"
-- [ ] Quem tá na cena?
+- [ ] Quem tá na cena? (com e sem memória): "Nesta página", "Também neste trecho" e "Onde"
 - [ ] Onde eu parei?
 - [ ] Ações para o Gerenciador de gestos do KOReader
 

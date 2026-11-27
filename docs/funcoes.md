@@ -132,14 +132,29 @@ Depois, já lendo o volume novo, o "Quem é esse?" pode procurar também na mem�
 
 ## Quem tá na cena?
 
-Quem aparece no trecho em que você está, o antigo "X-Ray do capítulo".
+*Desenho aprovado em 27/11/2026.*
 
+Quem e o que aparece no trecho em que você está, o antigo "X-Ray do capítulo". A ideia central é separar **quem está na página que você está vendo** de **quem está no trecho**.
 
-**Como abre:** menu do plugin, um gesto ou um toque no canto da tela (configurável).
+### Como abre
 
-**Com memória:** lista os personagens presentes no bloco atual, com a ficha mais recente de cada um.
+Por um gesto, por um toque no canto da tela (configurável) ou pelo menu. Abre na gaveta.
 
-**Sem IA:** detecta palavras com letra maiúscula no meio da frase, do início do capítulo até a posição atual, e lista as mais frequentes, com a mesma proteção do "Quem é esse?".
+### Com memória
+
+1. "Quem tá na cena?" e uma linha com o capítulo, o título dele e "até a pág. N".
+2. **"Nesta página":** cartões com nome, tipo e a ficha de quem aparece na página aberta. Para saber quem está na página, o plugin procura os nomes e apelidos da memória no texto da página atual.
+3. **"Também neste trecho":** lista mais leve com as outras pessoas `presentes` no bloco, cada uma com uma descrição de poucas palavras (o começo da ficha).
+4. **"Onde":** pílulas com os lugares `presentes` no bloco.
+
+Tocar em qualquer nome ou lugar abre a gaveta do "Quem é esse?".
+
+### Sem memória
+
+1. "Quem tá na cena?" e "do começo do capítulo até aqui".
+2. **"Nesta página":** pílulas com os nomes próprios da página aberta.
+3. **"Mais citados neste capítulo":** os nomes próprios do começo do capítulo até a posição atual, com a contagem e uma barrinha proporcional. Usa a mesma proteção de nomes próprios do "Quem é esse?". Pessoas e lugares vêm misturados, porque sem IA não dá para separar.
+4. Com uma IA configurada, um convite para gerar a memória.
 
 ## Onde eu parei?
 
@@ -181,6 +196,7 @@ A única seção que vale só para o livro aberto.
 ### Quem tá na cena?
 
 - Ligar a um gesto ou a um canto da tela.
+- Mostrar lugares (ligado).
 
 ### Onde eu parei?
 

@@ -42,6 +42,7 @@ Versão do formato: **1** (rascunho; ainda não há memória gerada neste format
     {
       "id": "bentinho",
       "nome": "Bentinho",
+      "tipo": "pessoa",
       "desde_bloco": 1,
       "apelidos": [
         { "apelido": "Dom Casmurro", "desde_bloco": 1 },
@@ -73,14 +74,15 @@ Em ordem, sem buracos. Cada bloco tem a memória **de quem leu até o fim dele**
 - `resumo_ate_aqui`: até 150 palavras, a história desde o início.
 - `resumo_do_bloco`: até 50 palavras, só o bloco.
 - `fios_soltos`: até 3 itens de até 15 palavras, o que está em aberto na história até o fim do bloco (promessas, dúvidas, conflitos sem resposta). É a lista inteira naquele ponto, não só o que mudou. Mostrado no "O que rolou?". Entrou no prompt v3.2; memórias geradas antes não têm o campo.
-- `presentes`: `id` dos personagens que importam neste bloco. É o que o "Quem tá na cena?" mostra.
+- `presentes`: `id` das pessoas (até 10) e dos lugares (até 3) que importam neste bloco. É o que o "Quem tá na cena?" mostra.
 - `checagem`: resultado da checagem de spoiler e de limites.
 
 No modo nuvem, o arquivo é gravado aos poucos: só existem os blocos já gerados.
 
 ### `personagens`
-Uma lista única e cumulativa para o livro todo. Ninguém sai dela: quem some da história por alguns capítulos continua com o nome, os apelidos e a última ficha.
+Uma lista única e cumulativa para o livro todo, com **pessoas e lugares** (desde o prompt v3.3; o nome da chave ficou `personagens` para não quebrar memórias antigas). Ninguém sai dela: quem some da história por alguns capítulos continua com o nome, os apelidos e a última ficha.
 - `id`: identificador fixo, sem acentos.
+- `tipo`: `"pessoa"` ou `"lugar"`. Memórias geradas antes do v3.3 não têm o campo e são lidas como `"pessoa"`.
 - `desde_bloco`: primeiro bloco em que a pessoa aparece no texto.
 - `apelidos`: cada um com o bloco em que o texto deixou claro que é a mesma pessoa.
 - `fichas`: o "quem é até aqui" (até 30 palavras), com uma entrada nova só quando o leitor descobre algo novo sobre a pessoa.
@@ -105,7 +107,8 @@ O plugin monta a lista cumulativa; a IA só devolve o que mudou:
   "presentes": ["bentinho", "capitu", "padre-cabral"],
   "personagens_novos_ou_atualizados": [
     { "id": "bentinho", "apelidos_novos": ["Bento"], "quem_e_ate_aqui": "…" },
-    { "id": "padre-cabral", "nome": "Padre Cabral", "apelidos_novos": [], "quem_e_ate_aqui": "…" }
+    { "id": "padre-cabral", "nome": "Padre Cabral", "tipo": "pessoa", "apelidos_novos": [], "quem_e_ate_aqui": "…" },
+    { "id": "matacavalos", "nome": "Matacavalos", "tipo": "lugar", "apelidos_novos": [], "quem_e_ate_aqui": "…" }
   ]
 }
 ```
