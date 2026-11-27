@@ -2,7 +2,7 @@ local InfoMessage = require("ui/widget/infomessage")
 local SpinWidget = require("ui/widget/spinwidget")
 local UIManager = require("ui/uimanager")
 local T = require("ffi/util").template
-local _ = require("gettext")
+local _ = require("fuxico/traducao")
 local N_ = _.ngettext
 
 local Configuracoes = require("fuxico/configuracoes")
@@ -30,7 +30,7 @@ function Menu.itens(plugin)
         sorting_hint = "tools",
         sub_item_table = {
             {
-                text = _("Who is this?"),
+                text = _("“Who is this?” settings"),
                 sub_item_table = {
                     caixa(_("Only on proper names"), "so_nomes_proprios"),
                     {

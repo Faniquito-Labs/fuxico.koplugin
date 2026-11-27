@@ -5,16 +5,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: _meta.lua:3 fuxico/menu.lua:29
+#: _meta.lua:6 fuxico/menu.lua:29
 msgid "Fuxico"
 msgstr ""
 
-#: _meta.lua:4
+#: _meta.lua:7
 msgid "Remembers the story for you: who is who, what happened and where you stopped, without spoilers."
 msgstr ""
 
-#: fuxico/menu.lua:33 main.lua:54
-msgid "Who is this?"
+#: fuxico/menu.lua:33
+msgid "“Who is this?” settings"
 msgstr ""
 
 #: fuxico/menu.lua:35
@@ -146,10 +146,14 @@ msgstr ""
 msgid "%1–%2 of %3"
 msgstr ""
 
-#: main.lua:78
+#: main.lua:41 main.lua:67
+msgid "Who is this?"
+msgstr ""
+
+#: main.lua:87
 msgid "Looking for mentions… (tap to cancel)"
 msgstr ""
 
-#: main.lua:84
+#: main.lua:93
 msgid "No mentions found up to this point."
 msgstr ""

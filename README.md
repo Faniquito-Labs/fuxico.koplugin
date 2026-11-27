@@ -8,7 +8,7 @@ Fuxico é um plugin para o [KOReader](https://github.com/koreader/koreader) que 
 
 Feito em português do Brasil, para livros em português.
 
-**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador; falta testar num Kindle, seguindo o [checklist do teste no Kindle](docs/teste-no-kindle.md). Veja o [roteiro](docs/roteiro.md).
+**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador. No Kindle, o plugin carrega em português, mas o botão ainda não aparece ao selecionar um nome com o Zen OS instalado (veja [onde paramos](docs/teste-no-kindle.md#onde-paramos)). Veja o [roteiro](docs/roteiro.md).
 
 ## Instalar (para testar)
 
@@ -27,7 +27,7 @@ Feito em português do Brasil, para livros em português.
 
 | Função | Com memória | Sem memória (sem IA) |
 |---|---|---|
-| **Quem é esse?** (segurar o dedo num nome) | Ficha do personagem até o ponto atual, com apelidos | Primeira aparição e últimas menções do nome até a página atual |
+| **Quem é esse?** (segurar o dedo num nome e tocar no botão do dicionário) | Ficha do personagem até o ponto atual, com apelidos | Primeira aparição e últimas menções do nome até a página atual |
 | **O que rolou?** | Resumo do que aconteceu até aqui, na medida do tempo parado | O trecho de antes da página e os nomes mais citados |
 | **Quem tá na cena?** | Personagens do trecho, com descrição | Nomes próprios mais citados no capítulo |
 | **Onde eu parei?** | Onde você está no capítulo, quanto falta, resumo do trecho e suas últimas paradas | O mesmo, com o começo do capítulo no lugar do resumo |

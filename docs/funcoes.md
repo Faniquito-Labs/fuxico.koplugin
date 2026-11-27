@@ -12,7 +12,13 @@ O visual de cada tela segue os princípios de [design.md](design.md).
 
 ### Como abre
 
-Segurando o dedo sobre um nome, aparece o menu de seleção de sempre do KOReader (Destacar, Copiar, Dicionário, Buscar...). O Fuxico acrescenta um botão **"Quem é esse?"** nesse menu. Tocar nele abre a gaveta.
+O Fuxico acrescenta um botão **"Quem é esse?"** nos dois lugares em que o KOReader mostra uma seleção. Tocar nele abre a gaveta.
+- **No dicionário.** Segurar o dedo numa palavra só abre direto o dicionário (é o padrão do KOReader), e o botão fica numa linha própria embaixo dele.
+- **No menu de seleção** (Destacar, Copiar, Dicionário, Buscar...), que aparece ao arrastar para selecionar mais de uma palavra ("José Dias") ou quando o KOReader está configurado para abrir esse menu também numa palavra só.
+
+**Com o Zen OS:** o Zen OS troca o dicionário e o menu de seleção pelos dele e, por padrão, esconde os botões de outros plugins. Para o "Quem é esse?" aparecer, é preciso ligar **Mostrar outros itens** nas configurações do Zen OS, em Destacar / Consultar, nas duas partes:
+- em **Consulta**: o botão aparece embaixo dos ícones do dicionário;
+- em **Destaque**: o botão fica atrás do botão **Mais** do menu de seleção.
 
 ### Proteção: só em nomes próprios
 
@@ -181,7 +187,9 @@ Igual, trocando "Neste trecho" por **"Como o capítulo começou"**: o primeiro p
 
 ## Configurações
 
-Ficam no menu nativo do KOReader, em **Ferramentas › Fuxico**, organizadas **por função**. O menu nativo não tem uma segunda linha por item, então o estado atual aparece no próprio texto do item (por exemplo, "Avisar quando sumiu por: 30 páginas").
+Ficam no menu nativo do KOReader, em **Ferramentas › Fuxico** (com um livro aberto), organizadas **por função**. O menu nativo não tem uma segunda linha por item, então o estado atual aparece no próprio texto do item (por exemplo, "Avisar quando sumiu por: 30 páginas").
+
+No menu, cada seção de função se chama **Ajustes do "…"** (por exemplo, Ajustes do "Quem é esse?"), e não só o nome da função. Com o nome sozinho, o item parecia ser a própria função, e não as opções dela.
 
 ### Memória deste livro
 
@@ -190,11 +198,11 @@ A única seção que vale só para o livro aberto.
 - Gerar agora.
 - Gerar à frente: quantos capítulos adiante (1, 2 ou 5).
 - **Modo releitura:** libera o livro inteiro só neste livro, para quem já sabe o final.
-- **Desligar o Fuxico neste livro:** o botão some do menu de seleção só neste livro (não ficção, contos, livros técnicos). PDFs já ficam de fora.
+- **Desligar o Fuxico neste livro:** o botão some do dicionário e do menu de seleção só neste livro (não ficção, contos, livros técnicos). PDFs já ficam de fora.
 - **Exportar e importar a memória:** copiar o `memoria.json` para uma pasta e trazer de outra (backup, outro aparelho, base compartilhada).
 - Apagar a memória deste livro.
 
-### Quem é esse?
+### Ajustes do "Quem é esse?"
 
 - Só em nomes próprios (ligado).
 - Avisar quando sumiu por: 30 páginas.

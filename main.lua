@@ -2,24 +2,8 @@ local InfoMessage = require("ui/widget/infomessage")
 local Trapper = require("ui/trapper")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
-local gettext = require("gettext")
 local util = require("util")
-local _ = gettext
-
-local function carregarTraducao(caminho)
-    local idioma = gettext.current_lang
-    if not idioma or idioma == "C" or idioma == "" then
-        return
-    end
-    local arquivo = string.format("%s/l10n/%s/fuxico.mo", caminho, idioma)
-    local f = io.open(arquivo, "r")
-    if f then
-        f:close()
-        gettext.loadMO(arquivo)
-    end
-end
-
-carregarTraducao(debug.getinfo(1, "S").source:match("^@(.*)/[^/]*$") or ".")
+local _ = require("fuxico/traducao")
 
 local Configuracoes = require("fuxico/configuracoes")
 local GavetaQuemE = require("fuxico/telas/gaveta_quem_e")
@@ -39,6 +23,9 @@ function Fuxico:init()
             return self:_botaoQuemE(destaque)
         end)
     end
+    if self.ui.dictionary and self.ui.dictionary.addToDictButtons then
+        self.ui.dictionary:addToDictButtons(self:_botaoDicionario())
+    end
 end
 
 function Fuxico:addToMainMenu(menu_items)
@@ -53,18 +40,40 @@ function Fuxico:_botaoQuemE(destaque)
     return {
         text = _("Who is this?"),
         show_in_highlight_dialog_func = function()
-            if not self:_disponivel() or not destaque.selected_text then
-                return false
-            end
-            if not Configuracoes:ler("so_nomes_proprios") then
-                return true
-            end
-            return Semia.pareceNome(destaque.selected_text.text)
+            return destaque.selected_text ~= nil and self:_mostrarBotao(destaque.selected_text.text)
         end,
         callback = function()
             local texto = util.cleanupSelectedText(destaque.selected_text.text)
             local corte = destaque.selected_text.pos0
             destaque:onClose()
+            self:quemE(texto, corte)
+        end,
+    }
+end
+
+function Fuxico:_mostrarBotao(texto)
+    if not self:_disponivel() or not texto or texto == "" then
+        return false
+    end
+    if not Configuracoes:ler("so_nomes_proprios") then
+        return true
+    end
+    return Semia.pareceNome(texto)
+end
+
+function Fuxico:_botaoDicionario()
+    return {
+        id = "fuxico_quem_e",
+        text = _("Who is this?"),
+        conditional = true,
+        show_func = function(janela)
+            return not janela.is_wiki and self:_mostrarBotao(janela.word)
+        end,
+        callback = function(janela)
+            local texto = util.cleanupSelectedText(janela.word)
+            local selecao = janela.highlight and janela.highlight.selected_text
+            local corte = selecao and selecao.pos0 or self.ui.document:getXPointer()
+            janela:onClose()
             self:quemE(texto, corte)
         end,
     }
