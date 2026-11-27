@@ -158,11 +158,26 @@ Tocar em qualquer nome ou lugar abre a gaveta do "Quem é esse?".
 
 ## Onde eu parei?
 
-**Como abre:** ao abrir o livro (configurável), pelo menu ou por um gesto.
+*Desenho aprovado em 27/11/2026.*
 
-**Com memória:** o `resumo_do_bloco` do trecho em que você está, mais a posição em capítulo e percentual.
+Para **se achar no livro**: em que ponto do capítulo você está, quanto falta e como voltar se perdeu a página. O "O que rolou?" responde o que aconteceu na história; o "Onde eu parei?" responde onde você está no livro.
 
-**Sem IA:** o último parágrafo lido antes de fechar o livro.
+### Como abre
+
+Por um gesto, pelo menu ou, se ligado, ao abrir o livro. Abre na gaveta.
+
+Se o "abrir ao retomar" estiver ligado e o livro estiver parado há tempo suficiente para o aviso do "O que rolou?", vale o "O que rolou?": as duas coisas não aparecem juntas ao abrir o livro.
+
+### Com memória
+
+1. "Onde eu parei?", o título do livro e o percentual do livro.
+2. **O capítulo atual** (número e título), com uma barra de progresso **dentro do capítulo** ("pág. 3 de 5 do capítulo") e **quanto falta para terminar** ("uns 4 min para terminar"), calculado pelo ritmo de leitura das estatísticas do KOReader. Sem estatísticas, sem a estimativa de tempo.
+3. **"Neste trecho"** no cartão invertido: o `resumo_do_bloco` do trecho em que você está, seguindo a mesma regra do resto do plugin (só o que já foi lido).
+4. **"Suas últimas paradas":** os lugares onde você parou de ler, com dia, hora e capítulo, tirados das estatísticas do KOReader. A primeira é a posição atual ("você está aqui"). Tocar numa parada leva até ela, guardando a posição para o "voltar". Resolve a página perdida: o livro abriu no lugar errado, alguém mexeu no Kindle, você foi parar num link ou numa nota, ou pulou páginas sem querer.
+
+### Sem memória
+
+Igual, trocando "Neste trecho" por **"Como o capítulo começou"**: o primeiro parágrafo do capítulo atual, como trecho do livro, para situar a cena.
 
 ## Configurações
 
@@ -200,7 +215,8 @@ A única seção que vale só para o livro aberto.
 
 ### Onde eu parei?
 
-- Abrir ao retomar a leitura (desligado).
+- Abrir ao retomar a leitura (desligado). Se o aviso do "O que rolou?" também valer para aquele livro, ele tem prioridade.
+- Quantas paradas mostrar: 3 ou 5.
 
 ### Inteligência artificial
 

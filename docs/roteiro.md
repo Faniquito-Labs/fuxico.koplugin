@@ -6,7 +6,7 @@
 - [x] Prompt v2, corrigido a partir dos erros do teste, e segunda rodada do Claude com ele ([resultado](teste-dom-casmurro.md#rodada-2-prompt-v2))
 - [x] Formato da memória com lista única de personagens ([formato](formato-memoria.md))
 - [x] Documentação inicial
-- [x] Design do "Quem é esse?", do "O que rolou?" e do menu de configurações, com as funções nomeadas como perguntas ([design](design.md), [funções](funcoes.md))
+- [x] Design das quatro funções ("Quem é esse?", "O que rolou?", "Quem tá na cena?" e "Onde eu parei?") e do menu de configurações, com as funções nomeadas como perguntas ([design](design.md), [funções](funcoes.md))
 
 ## 1. "Quem é esse?" sem IA
 
@@ -48,7 +48,7 @@ A primeira função, sem depender de nada externo.
 - [ ] Fios soltos no O que rolou?
 - [ ] Botão "Começo do capítulo"
 - [ ] Quem tá na cena? (com e sem memória): "Nesta página", "Também neste trecho" e "Onde"
-- [ ] Onde eu parei?
+- [ ] Onde eu parei? (com e sem memória): progresso no capítulo, tempo para terminar e últimas paradas a partir das estatísticas do KOReader
 - [ ] Ações para o Gerenciador de gestos do KOReader
 
 ## 4. Modo privado no PC
