@@ -1,0 +1,155 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Fuxico\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: _meta.lua:3 fuxico/menu.lua:29
+msgid "Fuxico"
+msgstr ""
+
+#: _meta.lua:4
+msgid "Remembers the story for you: who is who, what happened and where you stopped, without spoilers."
+msgstr ""
+
+#: fuxico/menu.lua:33 main.lua:54
+msgid "Who is this?"
+msgstr ""
+
+#: fuxico/menu.lua:35
+msgid "Only on proper names"
+msgstr ""
+
+#: fuxico/menu.lua:44
+msgid "Pages without mentions before the warning"
+msgstr ""
+
+#: fuxico/menu.lua:60
+msgid "Show the timeline thumbnail"
+msgstr ""
+
+#: fuxico/menu.lua:61
+msgid "Open the full screen directly"
+msgstr ""
+
+#: fuxico/menu.lua:65
+msgid "About and privacy"
+msgstr ""
+
+#: fuxico/menu.lua:69
+msgid ""
+"Fuxico %1\n"
+"\n"
+"\"Who is this?\" only searches the book on this device. No text from the book leaves your e-reader.\n"
+"\n"
+"%2"
+msgstr ""
+
+#: fuxico/menu.lua:39
+msgid "Warn when missing for: 1 page"
+msgid_plural "Warn when missing for: %1 pages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: fuxico/telas/gaveta_quem_e.lua:62
+msgid "on this page"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:72 fuxico/telas/gaveta_quem_e.lua:207
+msgid "page %1"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:127
+msgid "Doesn't look like a name"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:133
+msgid "In the middle of sentences, this word usually appears in lowercase, so it's probably not a name."
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:140
+msgid "Dictionary"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:141
+msgid "Search"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:144
+msgid "Show anyway"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:154
+msgid "since %1"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:157 fuxico/telas/tela_mencoes.lua:77
+msgid "up to page %1"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:171
+msgid "Missing for %1 pages. Last time: %2."
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:195
+msgid "Before this one, the last time"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:200 fuxico/telas/tela_mencoes.lua:193
+msgid "This is the first mention."
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:205
+msgid "First appearance"
+msgstr ""
+
+#: fuxico/telas/gaveta_quem_e.lua:64
+msgid "1 page ago"
+msgid_plural "%1 pages ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: fuxico/telas/gaveta_quem_e.lua:152 fuxico/telas/tela_mencoes.lua:75
+msgid "1 mention"
+msgid_plural "%1 mentions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: fuxico/telas/gaveta_quem_e.lua:213
+msgid "See the mention"
+msgid_plural "See all %1 mentions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: fuxico/telas/tela_mencoes.lua:97
+msgid "start"
+msgstr ""
+
+#: fuxico/telas/tela_mencoes.lua:99
+msgid "you are here · %1%"
+msgstr ""
+
+#: fuxico/telas/tela_mencoes.lua:104
+msgid "end"
+msgstr ""
+
+#: fuxico/telas/tela_mencoes.lua:163
+msgid "Recent"
+msgstr ""
+
+#: fuxico/telas/tela_mencoes.lua:165
+msgid "By chapter"
+msgstr ""
+
+#: fuxico/telas/tela_mencoes.lua:235
+msgid "%1–%2 of %3"
+msgstr ""
+
+#: main.lua:78
+msgid "Looking for mentions… (tap to cancel)"
+msgstr ""
+
+#: main.lua:84
+msgid "No mentions found up to this point."
+msgstr ""

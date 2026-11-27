@@ -93,23 +93,28 @@ No modo PC, o Calibre manda só o livro. O processador grava `Dom Casmurro.memor
 
 ## Peças do plugin
 
-Estrutura padrão de plugin do KOReader:
+O repositório é a própria pasta do plugin. `_meta.lua` e `main.lua` ficam na raiz, como o KOReader exige; o resto fica dentro de `fuxico/`, para os módulos serem carregados como `require("fuxico/...")` e não colidirem com arquivos de mesmo nome de outros plugins (o KOReader junta as pastas de todos os plugins no mesmo caminho de busca).
 
 ```
 fuxico.koplugin/
-  _meta.lua             nome e descrição
-  main.lua              registra menus, eventos e o item "Quem é esse?" na seleção
-  memoria.lua           lê, grava e consulta o memoria.json
-  posicao.lua           converte a posição do KOReader para (fragmento, palavra)
-  semia.lua             buscas do modo sem IA e a proteção de nomes próprios
-  configuracoes.lua     lê e grava as configurações gerais e as de cada livro
-  menu.lua              o menu em Ferramentas › Fuxico
-  gerador.lua           divide em blocos e chama a IA (modo nuvem)
-  servicos/             um arquivo por serviço de IA
-  telas/                as telas (gaveta, tela completa, O que rolou?, Quem tá na cena?, Onde eu parei?)
-  componentes/          peças visuais reaproveitadas (cartão, cartão da IA, linha do tempo, pílula)
-  l10n/                 traduções (pt_BR como idioma principal)
+  _meta.lua                 nome, descrição e versão
+  main.lua                  carrega a tradução, registra o menu e o "Quem é esse?" na seleção, faz a busca
+  fuxico/
+    semia.lua               buscas do modo sem IA e a proteção de nomes próprios     (etapa 1)
+    configuracoes.lua       configurações gerais, em fuxico.lua na pasta do KOReader (etapa 1)
+    menu.lua                o menu em Ferramentas › Fuxico                           (etapa 1)
+    telas/                  gaveta_quem_e.lua e tela_mencoes.lua                     (etapa 1)
+    componentes/            estilo, cartão e linha do tempo                          (etapa 1)
+    memoria.lua             lê, grava e consulta o memoria.json                      (etapa 2)
+    posicao.lua             converte a posição do KOReader para (fragmento, palavra) (etapa 2)
+    gerador.lua             divide em blocos e chama a IA (modo nuvem)               (etapa 2)
+    servicos/               um arquivo por serviço de IA                             (etapa 2)
+  l10n/                     fuxico.pot e uma pasta por idioma (pt_BR/fuxico.po e .mo)
+  ferramentas/l10n/         extrair.py (gera o .pot) e compilar.py (gera os .mo e confere a tradução)
+  ferramentas/testes/       testar.py: sintaxe de todo .lua e testes do semia.lua
 ```
+
+Os textos da interface são escritos em inglês no código, como no resto do KOReader, e traduzidos em `l10n/`. O português do Brasil é a tradução principal e tem de estar sempre completa (`compilar.py` falha se faltar algo).
 
 A lógica (busca, proteção, leitura da memória) fica separada das telas, para o visual mudar sem mexer na busca.
 

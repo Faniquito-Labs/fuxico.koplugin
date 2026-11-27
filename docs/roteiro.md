@@ -10,16 +10,18 @@
 
 ## 1. "Quem é esse?" sem IA
 
-A primeira função, sem depender de nada externo.
+A primeira função, sem depender de nada externo. Os itens marcados funcionam no KOReader do computador; falta o teste no Kindle.
 
-- [ ] Esqueleto do plugin (`_meta.lua`, `main.lua`, tradução pt-BR)
-- [ ] Menu inicial em Ferramentas › Fuxico: "Quem é esse?" e "Sobre e privacidade"
-- [ ] "Quem é esse?" no menu de seleção de texto, com a camada 1 da proteção (só nomes próprios)
-- [ ] Busca de todas as menções até a posição atual, em segundo plano
-- [ ] Camada 2 da proteção ("Não parece ser um nome", com Dicionário e Buscar)
-- [ ] Gaveta sem memória: resumo, aviso de sumiço, miniatura da linha do tempo, última vez, primeira aparição
-- [ ] Tela completa: linha do tempo grande, filtros e cartões
-- [ ] Ir até a menção guardando a posição para o "voltar" nativo
+- [x] Esqueleto do plugin (`_meta.lua`, `main.lua`, tradução pt-BR)
+- [x] Menu inicial em Ferramentas › Fuxico: "Quem é esse?" e "Sobre e privacidade"
+- [x] "Quem é esse?" no menu de seleção de texto, com a camada 1 da proteção (só nomes próprios)
+- [x] Busca de todas as menções até a posição atual, em segundo plano
+- [x] Camada 2 da proteção ("Não parece ser um nome", com Dicionário e Buscar)
+- [x] Gaveta sem memória: resumo, aviso de sumiço, miniatura da linha do tempo, última vez, primeira aparição
+- [x] Tela completa: linha do tempo grande, filtros e cartões
+- [x] Ir até a menção guardando a posição para o "voltar" nativo
+- [x] Ferramentas de tradução (extrair e compilar) e testes da lógica sem IA
+- [x] Testar no KOReader do computador, com o teste automático de `ferramentas/testes/koreader/` (27/11/2026, KOReader para Mac v2026.07.2)
 - [ ] Testar no Kindle 10ª geração: tempo de busca num livro de 1.000 páginas e o cartão escuro no e-ink
 
 ## 2. Memória direto no Kindle
