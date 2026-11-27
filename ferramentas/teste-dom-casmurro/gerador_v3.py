@@ -1,4 +1,4 @@
-"""Simula o gerador do Bulhufas no modo "aos poucos" (prompt v3.1).
+"""Simula o gerador do Fuxico no modo "aos poucos" (prompt v3.1).
 
 Fica na mesma pasta que checar.py (na pasta do teste: scripts/). A IA é quem
 responde cada pedido; este script só monta os pedidos, checa e junta as respostas.
@@ -13,7 +13,7 @@ Uso (sempre com PYTHONIOENCODING=utf-8 python -I):
 
 O prompt é lido de prompts/memoria-aos-poucos.md do repositório: o do repositório
 em que o script está ou, se ele foi copiado para a pasta do teste, o de uma pasta
-irmã bulhufas.koplugin (ou a indicada em BULHUFAS_REPO).
+irmã fuxico.koplugin (ou a indicada em FUXICO_REPO).
 """
 import importlib.util, json, os, re, shutil, sys
 from datetime import date
@@ -25,14 +25,14 @@ BASE = AQUI.parent  # pasta do teste: blocos.json, respostas/, v3/
 
 def achar_prompt():
     candidatos = []
-    if os.environ.get("BULHUFAS_REPO"):
-        candidatos.append(Path(os.environ["BULHUFAS_REPO"]))
-    candidatos += [AQUI.parent.parent, BASE.parent / "bulhufas.koplugin"]
+    if os.environ.get("FUXICO_REPO"):
+        candidatos.append(Path(os.environ["FUXICO_REPO"]))
+    candidatos += [AQUI.parent.parent, BASE.parent / "fuxico.koplugin"]
     for repo in candidatos:
         p = repo / "prompts" / "memoria-aos-poucos.md"
         if p.exists():
             return p
-    sys.exit("não achei prompts/memoria-aos-poucos.md; defina BULHUFAS_REPO")
+    sys.exit("não achei prompts/memoria-aos-poucos.md; defina FUXICO_REPO")
 
 
 PROMPT_MD = achar_prompt()

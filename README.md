@@ -1,10 +1,10 @@
-# Bulhufas
+# Fuxico
 
-> Para quem voltou ao livro e não lembra bulhufas do que aconteceu.
+> Todo o fuxico do livro até onde você leu: quem é quem, o que rolou e onde você parou.
 >
 > O livro guarda o texto. O Kindle lembra a história por você.
 
-Bulhufas é um plugin para o [KOReader](https://github.com/koreader/koreader) que ajuda a retomar a leitura sem se perder: quem é esse personagem, o que aconteceu até aqui, onde você parou. Tudo sem spoiler, porque a memória só vai até o ponto em que você está.
+Fuxico é um plugin para o [KOReader](https://github.com/koreader/koreader) que ajuda a retomar a leitura sem se perder: quem é esse personagem, o que aconteceu até aqui, onde você parou. Tudo sem spoiler, porque a memória só vai até o ponto em que você está.
 
 Feito em português do Brasil, para livros em português.
 

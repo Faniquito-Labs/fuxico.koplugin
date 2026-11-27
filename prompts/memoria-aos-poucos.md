@@ -1,6 +1,6 @@
 # Prompt v3.1: memória aos poucos
 
-Usado pelo gerador do Bulhufas no modo padrão: **um pedido por bloco**, em ordem. Cada pedido recebe a memória até o bloco anterior e o texto do bloco novo, e devolve só a memória deste bloco, no formato de [formato-memoria.md](../docs/formato-memoria.md#o-que-a-ia-devolve-por-bloco).
+Usado pelo gerador do Fuxico no modo padrão: **um pedido por bloco**, em ordem. Cada pedido recebe a memória até o bloco anterior e o texto do bloco novo, e devolve só a memória deste bloco, no formato de [formato-memoria.md](../docs/formato-memoria.md#o-que-a-ia-devolve-por-bloco).
 
 Diferenças em relação ao v2 ([livro inteiro](memoria-livro-inteiro.md)):
 - A IA nunca vê o texto além do bloco atual, então o spoiler só pode vir do que ela "sabe" do livro.

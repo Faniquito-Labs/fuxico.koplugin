@@ -148,4 +148,4 @@ No modo aos poucos, o `gerador_v3.py` vai para a mesma pasta `scripts/` do `chec
 3. `gerador_v3.py checar N` checa a resposta. Se falhar, grava o pedido de correção em `v3/correcoes/` e a IA responde de novo, na mesma conversa.
 4. `gerador_v3.py incorporar N` junta a resposta ao `memoria.json`.
 
-No fim, `gerador_v3.py final` gera `respostas/claude-v3.txt` no formato que o `checar.py` lê. O prompt é lido deste repositório (ou do indicado em `BULHUFAS_REPO`). Para avaliar o v3, lembre que o `checar.py` ainda usa o limite de 120 palavras para o resumo acumulado.
+No fim, `gerador_v3.py final` gera `respostas/claude-v3.txt` no formato que o `checar.py` lê. O prompt é lido deste repositório (ou do indicado em `FUXICO_REPO`). Para avaliar o v3, lembre que o `checar.py` ainda usa o limite de 120 palavras para o resumo acumulado.
