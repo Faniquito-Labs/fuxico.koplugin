@@ -1,4 +1,4 @@
-"""Checa as respostas de uma IA no teste da Memória da História.
+"""Checa as respostas de uma IA no teste do Bulhufas (memória da história).
 
 Uso:  python -I scripts/checar.py respostas/gemini.txt
       (cole no .txt todas as respostas da IA, uma depois da outra, como vieram)

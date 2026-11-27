@@ -1,8 +1,10 @@
-# Memória da História
+# Bulhufas
 
+> Para quem voltou ao livro e não lembra bulhufas do que aconteceu.
+>
 > O livro guarda o texto. O Kindle lembra a história por você.
 
-Plugin para o [KOReader](https://github.com/koreader/koreader) que ajuda a retomar a leitura sem se perder: quem é esse personagem, o que aconteceu até aqui, onde você parou. Tudo sem spoiler, porque a memória só vai até o ponto em que você está.
+Bulhufas é um plugin para o [KOReader](https://github.com/koreader/koreader) que ajuda a retomar a leitura sem se perder: quem é esse personagem, o que aconteceu até aqui, onde você parou. Tudo sem spoiler, porque a memória só vai até o ponto em que você está.
 
 Feito em português do Brasil, para livros em português.
 

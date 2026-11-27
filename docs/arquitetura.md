@@ -95,7 +95,7 @@ No modo PC, o Calibre manda só o livro. O processador grava `Dom Casmurro.memor
 Estrutura padrão de plugin do KOReader:
 
 ```
-memoria-da-historia.koplugin/
+bulhufas.koplugin/
   _meta.lua             nome e descrição
   main.lua              registra menus, eventos e o item "Quem é esse?" na seleção
   memoria.lua           lê, grava e consulta o memoria.json
