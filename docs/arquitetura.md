@@ -101,17 +101,28 @@ fuxico.koplugin/
   main.lua              registra menus, eventos e o item "Quem é esse?" na seleção
   memoria.lua           lê, grava e consulta o memoria.json
   posicao.lua           converte a posição do KOReader para (fragmento, palavra)
-  semia.lua             buscas do modo sem IA
+  semia.lua             buscas do modo sem IA e a proteção de nomes próprios
+  configuracoes.lua     lê e grava as configurações gerais e as de cada livro
+  menu.lua              o menu em Ferramentas › Fuxico
   gerador.lua           divide em blocos e chama a IA (modo nuvem)
   servicos/             um arquivo por serviço de IA
-  telas/                as telas (Quem é esse?, Previamente em..., X-Ray, Onde você parou)
+  telas/                as telas (gaveta, tela completa, Previamente em..., X-Ray, Onde você parou)
+  componentes/          peças visuais reaproveitadas (cartão, cartão da IA, linha do tempo, pílula)
   l10n/                 traduções (pt_BR como idioma principal)
 ```
 
-Pontos do KOReader a usar (a confirmar na implementação):
+A lógica (busca, proteção, leitura da memória) fica separada das telas, para o visual mudar sem mexer na busca.
+
+Pontos do KOReader a usar. Os marcados com ✓ foram conferidos no código do KOReader v2026.07 em 27/11/2026:
+- ✓ `ui.highlight:addToHighlightDialog(id, função)` acrescenta o botão "Quem é esse?" ao menu de seleção. A função recebe o `ReaderHighlight`, de onde sai `selected_text.text`, e pode esconder o botão com `show_in_highlight_dialog_func` (é onde entra a camada 1 da proteção).
+- ✓ `ui.document:findAllText(padrão, ignorar_maiúsculas, palavras_de_contexto, máximo, regex, flags)` busca no livro inteiro e devolve, para cada ocorrência, `start` e `end` (xpointers), `prev_text`, `matched_text` e `next_text`. A busca do próprio KOReader roda dentro de `Trapper:dismissableRunInSubprocess`, para não travar e poder ser cancelada; o Fuxico faz igual.
+- ✓ `ui.document:getXPointer()` dá a posição atual, e `ui.document:compareXPointers(a, b)` diz se `b` vem depois de `a` (1), antes (-1) ou é igual (0). É o que corta tudo depois da posição atual.
+- ✓ `ui.document:getPageFromXPointer(xp)` dá a página, para "até a pág. 71" e "há 2 páginas".
+- ✓ `ui.toc:getTocTitleByPage(xp)` dá o título do capítulo de uma ocorrência.
+- ✓ `ui.link:addCurrentLocationToStack()` seguido de `ui.rolling:onGotoXPointer(xp)` pula até uma menção guardando a posição para o "voltar" nativo.
+- ✓ `ui.menu:registerToMainMenu(plugin)` com `addToMainMenu(menu_items)` cria o menu do plugin.
+- ✓ Traduções do plugin carregadas com `gettext.loadMO(caminho)`, como faz o AnnotationSync.
 - Evento `onReaderReady` para checar a memória ao abrir o livro.
-- `ui.highlight` para adicionar "Quem é esse?" ao menu de seleção de texto.
-- `ui.document:getXPointer()` e funções de texto do crengine para posição e extração do texto.
 - `NetworkMgr` para esperar o Wi-Fi.
 - `DocSettings` para achar a pasta `.sdr` do livro.
 

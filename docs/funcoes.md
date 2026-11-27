@@ -2,51 +2,179 @@
 
 Cada função tem duas versões: **com memória**, quando o livro tem um `memoria.json`, e **sem IA**, quando não tem (nenhuma IA configurada, sem Wi-Fi ou livro ainda não processado). O modo sem IA nunca escreve resumo; ele só mostra trechos do próprio livro, que nunca saem do Kindle.
 
-Em todas elas, a regra é a mesma: **nada depois da posição atual de leitura**.
+Em todas elas, a regra é a mesma: **nada depois da posição atual de leitura**. A exceção é o modo releitura (ver [Memória deste livro](#memória-deste-livro)).
+
+O visual de cada tela segue os princípios de [design.md](design.md).
 
 ## Quem é esse?
 
-**Como abre:** segurar o dedo sobre um nome e escolher "Quem é esse?" no menu de seleção.
+### Como abre
 
-**Com memória:**
-- Procura o nome na lista de personagens, entre os nomes e os apelidos já conhecidos até o último bloco lido.
-- Mostra o nome principal, os apelidos conhecidos até aqui e a ficha mais recente. Funciona também para quem sumiu da história há vários capítulos.
-- Se o nome não estiver na lista, cai no modo sem IA.
+Segurando o dedo sobre um nome, aparece o menu de seleção de sempre do KOReader (Destacar, Copiar, Dicionário, Buscar...). O Fuxico acrescenta um botão **"Quem é esse?"** nesse menu. Tocar nele abre a gaveta.
 
-**Sem IA:**
-- Primeira aparição do nome no livro, com a frase em volta e o capítulo.
-- As últimas 3 a 5 menções antes da posição atual.
-- Toque numa menção para ir até ela (com "voltar" para onde estava).
+### Proteção: só em nomes próprios
+
+Duas camadas, para o botão não aparecer em palavras comuns:
+
+1. **Antes de mostrar o botão (instantânea).** O botão só aparece se a seleção parecer um nome:
+   - começa com maiúscula, inclusive acentuada ("Ângela", "Élio");
+   - em nomes compostos, cada palavra começa com maiúscula, menos as ligações (de, da, do, dos, das, e): "José Dias", "Rio de Janeiro", "Ezequiel de Sousa Escobar";
+   - palavras de 1 ou 2 letras e uma lista fixa de palavras comuns que costumam abrir frases (Ele, Ela, Quando, Então, Senhor...) não contam.
+2. **Depois da busca (a prova real).** A busca já acontece de qualquer jeito, então o plugin confere as ocorrências **no meio da frase**, onde a maiúscula não é obrigatória:
+   - quase sempre com maiúscula: é nome próprio, e a gaveta abre normal;
+   - aparece com minúscula: é palavra comum que estava no começo de uma frase. A gaveta mostra **"Não parece ser um nome"**, com atalhos para **Dicionário** e **Buscar**, e um "Mostrar mesmo assim" discreto.
+
+Títulos de capítulo em MAIÚSCULAS não contam na conferência. A proteção pode ser desligada em "Só em nomes próprios", para livros que escrevem nomes em minúscula de propósito.
+
+A mesma regra vale para **lugares e nomes de coisas** ("Matacavalos", "Engenho Novo", "Seminário de São José"). Sem memória, os textos são neutros e não chamam lugar de personagem.
+
+### Gaveta sem memória
+
+De cima para baixo:
+
+1. **Nome** em destaque. Sem avatar nem inicial.
+2. **Linha de resumo:** número de menções, desde que capítulo e até que página ("27 menções · desde o cap. III · até a pág. 71").
+3. **Aviso de sumiço**, só quando a menção anterior está longe (padrão: 30 páginas): "Sumiu por 58 páginas. Última vez no cap. LXXI."
+4. **Miniatura da linha do tempo** de aparições, só até a posição atual.
+5. **"Antes desta, a última vez":** a frase da menção anterior, com capítulo e distância ("há 1 página"). Vem primeiro porque o "quem é esse?" costuma acontecer quando o personagem volta depois de sumir.
+6. **"Primeira aparição":** a frase, com capítulo.
+7. Botão **"Ver as N menções"**, que abre a tela completa.
+8. Se uma IA estiver configurada: um convite discreto **"Gerar a memória deste livro"**.
+
+Os cartões de trecho são tocáveis: levam ao trecho no livro, guardando a posição atual para o "voltar" nativo do KOReader.
+
+### Gaveta com memória
+
+1. **Nome**, com o **tipo** ("pessoa", "lugar") ao lado.
+2. **Linha de resumo**, com os **apelidos** conhecidos até aqui ("também: Capitolina · 27 menções · até a pág. 71").
+3. **Ficha** no cartão invertido, com o título "Quem é, até aqui" e o texto mais recente da IA. No rodapé:
+   - "Atualizada no cap. XXXI": quando a ficha mudou pela última vez. Se for antiga em relação à posição atual, o personagem passou muito tempo sem novidade;
+   - "primeira vez no cap. III";
+   - "Aparece mais com: Bentinho, José Dias": os personagens que mais dividem trechos com ele até aqui, calculados da lista `presentes` dos blocos, sem chamada extra à IA.
+   
+   O ícone de relógio no cartão abre o **histórico da ficha**: como ela mudou ao longo do livro, só até onde você leu.
+4. Aviso de sumiço, miniatura da linha do tempo e "Antes desta, a última vez", como na versão sem memória.
+5. Botão "Ver as N menções".
+
+A primeira aparição sai da gaveta e fica só na tela completa, porque a ficha já explica quem é.
+
+Se o nome não estiver na lista de personagens da memória, a gaveta cai na versão sem memória.
+
+### Tela completa ("Ver as N menções")
+
+- Linha do tempo grande, só até a posição atual, com "você está aqui".
+- Filtros em pílulas: **Recentes** ou **Por capítulo**.
+- As menções em cartões, com a frase inteira, o capítulo e a distância ("há 2 páginas").
+- Opção nas configurações para abrir direto esta tela, em vez da gaveta.
+
+### Para decidir depois
+
+- **"Também se chama…"**: juntar à mão dois nomes da mesma pessoa no modo sem IA ("Capitu" e "Capitolina"), guardado nos dados do livro.
 
 ## Previamente em…
 
-**Como abre:** menu do plugin, ou automaticamente ao abrir um livro parado há mais de N dias (configurável, desligado por padrão).
+*Desenho proposto em 27/11/2026, em discussão.*
 
-**Com memória:** o `resumo_ate_aqui` do último bloco lido por inteiro, seguido do `resumo_do_bloco` do bloco atual, se ele já tiver sido lido em boa parte.
+### Como abre
 
-**Sem IA:** não disponível. A tela explica como gerar a memória.
+Pelo menu do plugin, por um gesto, ou sozinho ao abrir um livro parado há mais de N dias (configurável, desligado por padrão).
+
+### Com memória
+
+Tela própria, de cima para baixo:
+
+1. "Previamente em…", o **título do livro** e uma linha com há quanto tempo, em que capítulo e em que percentual você parou.
+2. **"A história até aqui"** no cartão invertido: o `resumo_ate_aqui` do último bloco lido por inteiro, recolhido nas primeiras linhas, com "Ler tudo".
+3. **"Nos últimos capítulos":** os `resumo_do_bloco` dos dois ou três últimos blocos, numa linha do tempo vertical, marcando o trecho em que você está.
+4. **"Em cena":** pílulas com os personagens `presentes` no bloco atual. Tocar num nome abre a gaveta do "Quem é esse?".
+5. **"Você parou aqui":** o último parágrafo lido, como trecho do livro.
+6. Botão **"Continuar lendo"**.
+
+### Sem IA
+
+Sem resumo, só o que dá para tirar do texto:
+
+1. O mesmo cabeçalho (título, há quanto tempo, capítulo, percentual).
+2. **"Você parou aqui":** um trecho maior antes da posição atual.
+3. **"Mais citados nos últimos capítulos":** pílulas com os nomes próprios mais frequentes, com a contagem.
+4. **"Capítulos recentes":** os títulos dos últimos capítulos, tocáveis.
+5. Com uma IA configurada, um convite para gerar a memória.
+6. Botão "Continuar lendo".
 
 ## X-Ray do capítulo
 
-**Como abre:** menu do plugin, ou um toque no canto da tela (configurável).
+**Como abre:** menu do plugin, um gesto ou um toque no canto da tela (configurável).
 
 **Com memória:** lista os personagens presentes no bloco atual, com a ficha mais recente de cada um.
 
-**Sem IA:** detecta palavras com letra maiúscula no meio da frase, do início do capítulo até a posição atual, e lista as mais frequentes. Ignora palavras comuns em início de frase e uma lista de palavras que não são nomes (dias da semana, meses, "Deus", "Senhor"...).
+**Sem IA:** detecta palavras com letra maiúscula no meio da frase, do início do capítulo até a posição atual, e lista as mais frequentes, com a mesma proteção do "Quem é esse?".
 
 ## Onde você parou
 
-**Como abre:** ao abrir o livro (configurável), ou pelo menu.
+**Como abre:** ao abrir o livro (configurável), pelo menu ou por um gesto.
 
 **Com memória:** o `resumo_do_bloco` do trecho em que você está, mais a posição em capítulo e percentual.
 
 **Sem IA:** o último parágrafo lido antes de fechar o livro.
 
-## Configurações previstas
+## Configurações
 
-- Modo de geração: nenhum (só sem IA), nuvem ou PC
-- Serviço de IA e chave de API (só no modo nuvem)
-- Gerar à frente quantos capítulos
-- Gerar só no Wi-Fi e com bateria acima de X%
-- Abrir "Previamente em…" ao retomar depois de N dias
-- Apagar a memória deste livro
+Ficam no menu nativo do KOReader, em **Ferramentas › Fuxico**, organizadas **por função**. Cada item mostra o estado atual numa linha embaixo, para não precisar entrar nele.
+
+### Memória deste livro
+
+A única seção que vale só para o livro aberto.
+- Estado: quantos trechos estão prontos e até que capítulo ("32 de 61 trechos prontos · até o cap. XL"), ou o progresso quando está gerando.
+- Gerar agora.
+- Gerar à frente: quantos capítulos adiante (1, 2 ou 5).
+- **Modo releitura:** libera o livro inteiro só neste livro, para quem já sabe o final.
+- **Desligar o Fuxico neste livro:** o botão some do menu de seleção só neste livro (não ficção, contos, livros técnicos). PDFs já ficam de fora.
+- **Exportar e importar a memória:** copiar o `memoria.json` para uma pasta e trazer de outra (backup, outro aparelho, base compartilhada).
+- Apagar a memória deste livro.
+
+### Quem é esse?
+
+- Só em nomes próprios (ligado).
+- Avisar quando sumiu por: 30 páginas.
+- Mostrar a miniatura da linha do tempo (ligado).
+- Abrir direto a tela completa (desligado).
+
+### Previamente em…
+
+- Abrir sozinho depois de: desligado, 3, 7 ou 14 dias parado.
+- Ligar a um gesto (explica o caminho no Gerenciador de gestos do KOReader).
+
+### X-Ray
+
+- Ligar a um gesto ou a um canto da tela.
+
+### Onde você parou
+
+- Abrir ao retomar a leitura (desligado).
+
+### Inteligência artificial
+
+- Modo: nenhum (só sem IA), nuvem ou PC.
+- Serviço: Gemini, Claude, DeepSeek ou Groq.
+- Chave de API, mostrada mascarada (só os 4 últimos caracteres).
+- **Importar chave de arquivo:** lê um `fuxico-chave.txt` copiado pelo USB para a raiz do Kindle e apaga o arquivo depois de importar.
+- Testar conexão.
+- Quando gerar: só no Wi-Fi, e **só carregando** ou com **bateria mínima** (padrão: 30%).
+- **Uso:** "Este mês: 38 trechos gerados", e um **limite mensal** opcional para os serviços pagos.
+
+### Sobre e privacidade
+
+- Versão e link do repositório.
+- Em poucas linhas, o que sai do Kindle e quando.
+
+### O menu cresce com o plugin
+
+O menu só mostra opções que já funcionam:
+- **Etapa 1:** Quem é esse? e Sobre e privacidade.
+- **Etapa 2:** entram Memória deste livro e Inteligência artificial.
+- **Etapa 3:** entram Previamente em…, X-Ray e Onde você parou.
+
+### Onde ficam guardadas
+
+- Configurações gerais e chave de API: num arquivo próprio do plugin, na pasta de configurações do KOReader, só no Kindle.
+- Configurações por livro (releitura, desligado neste livro) e a memória: na pasta `.sdr` do livro.

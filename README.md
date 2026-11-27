@@ -37,6 +37,7 @@ Arquitetura completa em [docs/arquitetura.md](docs/arquitetura.md).
 ## Documentação
 
 - [Funções](docs/funcoes.md): o que cada tela mostra, com e sem memória
+- [Design](docs/design.md): princípios visuais para e-ink e as peças de tela (gaveta, cartões, linha do tempo)
 - [Arquitetura](docs/arquitetura.md): modos de geração, onde os arquivos ficam, como o plugin conversa com o KOReader
 - [Formato da memória](docs/formato-memoria.md): o `memoria.json`, posição no texto e a chave do livro
 - [Base compartilhada](docs/base-compartilhada.md): ideia de um servidor com memórias prontas, direito autoral e privacidade
