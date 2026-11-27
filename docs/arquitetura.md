@@ -41,7 +41,7 @@ E devolve a memória até este bloco: `resumo_ate_aqui`, `resumo_do_bloco`, quem
 ## Modo nuvem (padrão)
 
 - Ao abrir o livro, o plugin verifica quantos blocos à frente da posição atual já têm memória. Se faltar, e houver Wi-Fi, gera os próximos (configurável, por exemplo 2 capítulos à frente).
-- Um pedido por bloco, pequeno: cerca de 3 mil tokens de entrada e 1 mil de saída.
+- Um pedido por bloco, pequeno: cerca de 6 mil tokens de entrada e 1 mil de saída ([prompt v3](../prompts/memoria-aos-poucos.md)).
 - A geração roda em segundo plano e para se o Wi-Fi cair ou a bateria baixar do limite configurado.
 - A chave de API fica nas configurações do plugin, só no Kindle.
 
