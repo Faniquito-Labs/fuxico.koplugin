@@ -75,7 +75,7 @@ Se o nome não estiver na lista de personagens da memória, a gaveta cai na vers
 
 ## O que rolou?
 
-*Desenho proposto em 27/11/2026, em discussão.*
+*Desenho aprovado em 27/11/2026.*
 
 O resumo do que aconteceu até aqui, para quem volta ao livro depois de alguns dias.
 
