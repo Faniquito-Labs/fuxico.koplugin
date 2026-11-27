@@ -5,11 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: _meta.lua:4 fuxico/menu.lua:29
+#: _meta.lua:3 fuxico/menu.lua:29
 msgid "Fuxico"
 msgstr ""
 
-#: _meta.lua:5
+#: _meta.lua:4
 msgid "Remembers the story for you: who is who, what happened and where you stopped, without spoilers."
 msgstr ""
 
@@ -56,51 +56,51 @@ msgstr[1] ""
 msgid "on this page"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:71 fuxico/telas/gaveta_quem_e.lua:206
+#: fuxico/telas/gaveta_quem_e.lua:72 fuxico/telas/gaveta_quem_e.lua:207
 msgid "page %1"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:126
+#: fuxico/telas/gaveta_quem_e.lua:127
 msgid "Doesn't look like a name"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:132
+#: fuxico/telas/gaveta_quem_e.lua:133
 msgid "In the middle of sentences, this word usually appears in lowercase, so it's probably not a name."
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:139
+#: fuxico/telas/gaveta_quem_e.lua:140
 msgid "Dictionary"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:140
+#: fuxico/telas/gaveta_quem_e.lua:141
 msgid "Search"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:143
+#: fuxico/telas/gaveta_quem_e.lua:144
 msgid "Show anyway"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:153
+#: fuxico/telas/gaveta_quem_e.lua:154
 msgid "since %1"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:156 fuxico/telas/tela_mencoes.lua:75
+#: fuxico/telas/gaveta_quem_e.lua:157 fuxico/telas/tela_mencoes.lua:77
 msgid "up to page %1"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:170
+#: fuxico/telas/gaveta_quem_e.lua:171
 msgid "Missing for %1 pages. Last time: %2."
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:194
+#: fuxico/telas/gaveta_quem_e.lua:195
 msgid "Before this one, the last time"
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:199 fuxico/telas/tela_mencoes.lua:192
+#: fuxico/telas/gaveta_quem_e.lua:200 fuxico/telas/tela_mencoes.lua:193
 msgid "This is the first mention."
 msgstr ""
 
-#: fuxico/telas/gaveta_quem_e.lua:204
+#: fuxico/telas/gaveta_quem_e.lua:205
 msgid "First appearance"
 msgstr ""
 
@@ -110,36 +110,40 @@ msgid_plural "%1 pages ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: fuxico/telas/gaveta_quem_e.lua:151 fuxico/telas/tela_mencoes.lua:73
+#: fuxico/telas/gaveta_quem_e.lua:152 fuxico/telas/tela_mencoes.lua:75
 msgid "1 mention"
 msgid_plural "%1 mentions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: fuxico/telas/gaveta_quem_e.lua:212
+#: fuxico/telas/gaveta_quem_e.lua:213
 msgid "See the mention"
 msgid_plural "See all %1 mentions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: fuxico/telas/tela_mencoes.lua:95
+#: fuxico/telas/tela_mencoes.lua:97
 msgid "start"
 msgstr ""
 
-#: fuxico/telas/tela_mencoes.lua:97
+#: fuxico/telas/tela_mencoes.lua:99
 msgid "you are here · %1%"
 msgstr ""
 
-#: fuxico/telas/tela_mencoes.lua:102
+#: fuxico/telas/tela_mencoes.lua:104
 msgid "end"
 msgstr ""
 
-#: fuxico/telas/tela_mencoes.lua:172
+#: fuxico/telas/tela_mencoes.lua:163
 msgid "Recent"
 msgstr ""
 
-#: fuxico/telas/tela_mencoes.lua:174
+#: fuxico/telas/tela_mencoes.lua:165
 msgid "By chapter"
+msgstr ""
+
+#: fuxico/telas/tela_mencoes.lua:235
+msgid "%1–%2 of %3"
 msgstr ""
 
 #: main.lua:78

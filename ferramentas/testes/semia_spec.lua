@@ -43,6 +43,9 @@ confere("cortarAntes com ponto", Semia.cortarAntes("Ele saiu. Depois viu a "), "
 confere("cortarAntes sem ponto", Semia.cortarAntes("a filha do vizinho, a"), "\226\128\166a filha do vizinho, a")
 confere("cortarDepois com ponto", Semia.cortarDepois(" riu e voltou. Depois saiu"), "riu e voltou.")
 confere("cortarDepois sem ponto", Semia.cortarDepois(" riu e voltou"), "riu e voltou\226\128\166")
+confere("cortarAntes com título de capítulo", Semia.cortarAntes("Capítulo 8\nA visita de "), "A visita de")
+confere("cortarAntes com título e frase anterior", Semia.cortarAntes("Capítulo 8\nEle chegou. A visita de "), "A visita de")
+confere("cortarDepois com quebra", Semia.cortarDepois(" trouxe notícias\nCapítulo 9"), "trouxe notícias")
 
 confere("ehTodaMaiuscula CAPITU", Semia.ehTodaMaiuscula("CAPITU"), true)
 confere("ehTodaMaiuscula Capitu", Semia.ehTodaMaiuscula("Capitu"), false)

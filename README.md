@@ -8,7 +8,7 @@ Fuxico é um plugin para o [KOReader](https://github.com/koreader/koreader) que 
 
 Feito em português do Brasil, para livros em português.
 
-**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA já tem código, ainda não testado num aparelho. Veja o [roteiro](docs/roteiro.md).
+**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador; falta testar num Kindle. Veja o [roteiro](docs/roteiro.md).
 
 ## Instalar (para testar)
 
@@ -20,6 +20,7 @@ Feito em português do Brasil, para livros em português.
 ## Desenvolvimento
 
 - Testes (precisa do pacote `lupa`): `python3 -m venv .venv && .venv/bin/pip install lupa`, depois `.venv/bin/python -I ferramentas/testes/testar.py`.
+- Teste dentro do KOReader do computador (Mac ou Linux): `ferramentas/testes/koreader/rodar.sh <pasta koreader do KOReader> <pasta de saída>`. Gera um livro de teste, abre o KOReader com o plugin, passa pelas telas do "Quem é esse?" e salva uma foto de cada uma na pasta de saída. No Mac, a pasta do KOReader fica em `KOReader.app/Contents/koreader` (as versões para Mac saem na release `ota` do KOReader).
 - Traduções: depois de mudar textos no código, `python3 -I ferramentas/l10n/extrair.py`, atualize `l10n/pt_BR/fuxico.po` e rode `python3 -I ferramentas/l10n/compilar.py`.
 
 ## O que ele vai fazer

@@ -23,7 +23,7 @@ local GavetaQuemE = require("fuxico/telas/gaveta_quem_e")
 local LinhaDoTempo = require("fuxico/componentes/linha_do_tempo")
 local Semia = require("fuxico/semia")
 
-local MAX_LINHAS = 3
+local MAX_LINHAS = 4
 
 local TelaMencoes = InputContainer:extend{
     resultado = nil,
@@ -66,6 +66,8 @@ function TelaMencoes:_ordenar()
         lista = invertida
     end
     self.lista = lista
+    self.inicios = { 1 }
+    self.pagina = 1
 end
 
 function TelaMencoes:_cabecalho()
@@ -121,12 +123,12 @@ function TelaMencoes:_pilula(texto, ordem)
         radius = Estilo.raio_pilula,
         bordersize = selecionada and Estilo.borda_forte or Estilo.borda_fina,
         text_font_bold = selecionada,
-        text_font_size = 16,
+        text_font_size = 18,
+        padding_h = Estilo.espaco * 2,
         show_parent = self,
         callback = function()
             if self.ordem ~= ordem then
                 self.ordem = ordem
-                self.pagina = 1
                 self:_ordenar()
                 self:_remontar()
             end
@@ -151,17 +153,6 @@ function TelaMencoes:_cartao(mencao)
     }
 end
 
-function TelaMencoes:_porPagina(altura_livre)
-    if not self._altura_cartao then
-        local amostra = self:_cartao({
-            antes = string.rep("amostra ", 40), trecho = "Nome", depois = "", capitulo = "Capítulo", pagina = 1,
-        })
-        self._altura_cartao = amostra:getSize().h
-        amostra:free()
-    end
-    return math.max(1, math.floor(altura_livre / (self._altura_cartao + Estilo.espaco)))
-end
-
 function TelaMencoes:_montar()
     local topo = VerticalGroup:new{
         align = "left",
@@ -177,16 +168,26 @@ function TelaMencoes:_montar()
     }
     local cabecalho = self:_cabecalho()
     local rodape_altura = Screen:scaleBySize(48)
-    local livre = self.altura - cabecalho:getSize().h - topo:getSize().h - rodape_altura - 2 * Estilo.margem
-    self.por_pagina = self:_porPagina(livre)
-    self.total_paginas = math.max(1, math.ceil(#self.lista / self.por_pagina))
-    self.pagina = math.max(1, math.min(self.pagina, self.total_paginas))
+    local livre = self.altura - cabecalho:getSize().h - topo:getSize().h - rodape_altura - Estilo.margem
 
     local cartoes = VerticalGroup:new{ align = "left" }
-    local inicio = (self.pagina - 1) * self.por_pagina + 1
-    for i = inicio, math.min(#self.lista, inicio + self.por_pagina - 1) do
-        table.insert(cartoes, self:_cartao(self.lista[i]))
+    local inicio = self.inicios[self.pagina] or 1
+    local ocupado = 0
+    self.primeiro_da_pagina, self.ultimo_da_pagina = inicio, inicio - 1
+    for i = inicio, #self.lista do
+        local cartao = self:_cartao(self.lista[i])
+        local altura = cartao:getSize().h + Estilo.espaco
+        if ocupado + altura > livre and i > inicio then
+            cartao:free()
+            break
+        end
+        table.insert(cartoes, cartao)
         table.insert(cartoes, VerticalSpan:new{ width = Estilo.espaco })
+        ocupado = ocupado + altura
+        self.ultimo_da_pagina = i
+    end
+    if self.ultimo_da_pagina < #self.lista then
+        self.inicios[self.pagina + 1] = self.ultimo_da_pagina + 1
     end
     if #self.lista == 0 then
         table.insert(cartoes, TextWidget:new{ text = _("This is the first mention."), face = Estilo.texto() })
@@ -230,12 +231,15 @@ function TelaMencoes:_rodape(altura)
             show_parent = self,
             callback = function() self:onPaginaAnterior() end,
         },
-        TextWidget:new{ text = T("%1 / %2", self.pagina, self.total_paginas), face = Estilo.texto() },
+        TextWidget:new{
+            text = #self.lista > 0 and T(_("%1–%2 of %3"), self.primeiro_da_pagina, self.ultimo_da_pagina, #self.lista) or "",
+            face = Estilo.texto(),
+        },
         Button:new{
             text = "›",
             width = largura_botao,
             bordersize = 0,
-            enabled = self.pagina < self.total_paginas,
+            enabled = self.ultimo_da_pagina < #self.lista,
             show_parent = self,
             callback = function() self:onPaginaSeguinte() end,
         },
@@ -272,7 +276,7 @@ function TelaMencoes:onFechar()
 end
 
 function TelaMencoes:onPaginaSeguinte()
-    if self.pagina < self.total_paginas then
+    if self.inicios[self.pagina + 1] then
         self.pagina = self.pagina + 1
         self:_remontar()
     end

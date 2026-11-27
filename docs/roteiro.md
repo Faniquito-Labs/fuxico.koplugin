@@ -10,7 +10,7 @@
 
 ## 1. "Quem é esse?" sem IA
 
-A primeira função, sem depender de nada externo. Os itens marcados já têm código; nenhum foi testado num aparelho ainda.
+A primeira função, sem depender de nada externo. Os itens marcados funcionam no KOReader do computador; falta o teste no Kindle.
 
 - [x] Esqueleto do plugin (`_meta.lua`, `main.lua`, tradução pt-BR)
 - [x] Menu inicial em Ferramentas › Fuxico: "Quem é esse?" e "Sobre e privacidade"
@@ -21,7 +21,7 @@ A primeira função, sem depender de nada externo. Os itens marcados já têm c�
 - [x] Tela completa: linha do tempo grande, filtros e cartões
 - [x] Ir até a menção guardando a posição para o "voltar" nativo
 - [x] Ferramentas de tradução (extrair e compilar) e testes da lógica sem IA
-- [ ] Testar no KOReader do computador (emulador), para conferir as telas antes do Kindle
+- [x] Testar no KOReader do computador, com o teste automático de `ferramentas/testes/koreader/` (27/11/2026, KOReader para Mac v2026.07.2)
 - [ ] Testar no Kindle 10ª geração: tempo de busca num livro de 1.000 páginas e o cartão escuro no e-ink
 
 ## 2. Memória direto no Kindle

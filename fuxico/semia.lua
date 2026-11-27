@@ -169,6 +169,13 @@ function Semia.cortarAntes(antes)
     if s == "" then
         return ""
     end
+    local quebra = ultimaPosicao(s, "\n", true)
+    if quebra then
+        s = s:sub(quebra + 1)
+        if not s:find("[%.!?]%s") and not s:find(RETICENCIAS .. " ", 1, true) then
+            return (s:gsub("^%s+", ""))
+        end
+    end
     local fim = ultimaPosicao(s, "[%.!?]%s")
     local fim_reticencias = ultimaPosicao(s, RETICENCIAS .. " ", true)
     if fim_reticencias and (not fim or fim_reticencias > fim) then
@@ -184,6 +191,13 @@ function Semia.cortarDepois(depois)
     local s = (depois or ""):gsub("^%s+", "")
     if s == "" then
         return ""
+    end
+    local quebra = s:find("\n", 1, true)
+    if quebra then
+        s = s:sub(1, quebra - 1):gsub("%s+$", "")
+        if not s:find("[%.!?]") and not s:find(RETICENCIAS, 1, true) then
+            return s
+        end
     end
     local fim = primeiraPosicao(s, "[%.!?]")
     local fim_reticencias = primeiraPosicao(s, RETICENCIAS, true)
