@@ -1,6 +1,6 @@
 # Formato da memória (`memoria.json`)
 
-Versão do formato: **1** (rascunho).
+Versão do formato: **1** (rascunho; ainda não há memória gerada neste formato).
 
 ## Exemplo
 
@@ -33,14 +33,23 @@ Versão do formato: **1** (rascunho).
       "capitulos": ["I", "V"],
       "resumo_ate_aqui": "…",
       "resumo_do_bloco": "…",
-      "personagens": [
-        {
-          "nome": "Bentinho",
-          "apelidos": ["Dom Casmurro"],
-          "quem_e_ate_aqui": "…"
-        }
+      "presentes": ["bentinho", "jose-dias", "d-gloria", "capitu"],
+      "checagem": { "spoiler_nome": 0, "limites": 0, "refeito": false }
+    }
+  ],
+  "personagens": [
+    {
+      "id": "bentinho",
+      "nome": "Bentinho",
+      "desde_bloco": 1,
+      "apelidos": [
+        { "apelido": "Dom Casmurro", "desde_bloco": 1 },
+        { "apelido": "Bento", "desde_bloco": 3 }
       ],
-      "checagem": { "spoiler_nome": 0, "refeito": false }
+      "fichas": [
+        { "bloco": 1, "quem_e_ate_aqui": "…" },
+        { "bloco": 3, "quem_e_ate_aqui": "…" }
+      ]
     }
   ]
 }
@@ -60,12 +69,49 @@ De onde veio a memória. Permite refazer quando o prompt mudar de versão.
 Em ordem, sem buracos. Cada bloco tem a memória **de quem leu até o fim dele**.
 - `inicio` / `fim`: posição no texto (ver abaixo).
 - `capitulos`: primeiro e último capítulo do bloco, só para exibir.
-- `resumo_ate_aqui`: até 120 palavras, a história desde o início.
+- `resumo_ate_aqui`: até 150 palavras, a história desde o início.
 - `resumo_do_bloco`: até 50 palavras, só o bloco.
-- `personagens`: até 10 fichas, com `quem_e_ate_aqui` de até 30 palavras.
-- `checagem`: resultado da checagem de spoiler.
+- `presentes`: `id` dos personagens que importam neste bloco. É o que o X-Ray mostra.
+- `checagem`: resultado da checagem de spoiler e de limites.
 
 No modo nuvem, o arquivo é gravado aos poucos: só existem os blocos já gerados.
+
+### `personagens`
+Uma lista única e cumulativa para o livro todo. Ninguém sai dela: quem some da história por alguns capítulos continua com o nome, os apelidos e a última ficha.
+- `id`: identificador fixo, sem acentos.
+- `desde_bloco`: primeiro bloco em que a pessoa aparece no texto.
+- `apelidos`: cada um com o bloco em que o texto deixou claro que é a mesma pessoa.
+- `fichas`: o "quem é até aqui" (até 30 palavras), com uma entrada nova só quando o leitor descobre algo novo sobre a pessoa.
+
+**Como "Quem é esse?" consulta, estando no bloco N:**
+1. Procura o nome tocado entre os `nome` e `apelidos` com `desde_bloco` ≤ N.
+2. Mostra a última ficha com `bloco` ≤ N e só os apelidos já conhecidos.
+3. Se não achar, cai no modo sem IA.
+
+**Por que mudou:** no teste com *Dom Casmurro*, as fichas eram 10 por bloco. Quando um personagem saía da lista, os apelidos sumiam junto ("Tartaruga" e "Joãosinho" de Padua, "Nanata" de D. Fortunata). Ver [teste-dom-casmurro.md](teste-dom-casmurro.md).
+
+### O que a IA devolve por bloco
+
+O plugin monta a lista cumulativa; a IA só devolve o que mudou:
+
+```json
+{
+  "bloco": 3,
+  "resumo_ate_aqui": "…",
+  "resumo_do_bloco": "…",
+  "presentes": ["bentinho", "capitu", "padre-cabral"],
+  "personagens_novos_ou_atualizados": [
+    { "id": "bentinho", "apelidos_novos": ["Bento"], "quem_e_ate_aqui": "…" },
+    { "id": "padre-cabral", "nome": "Padre Cabral", "apelidos_novos": [], "quem_e_ate_aqui": "…" }
+  ]
+}
+```
+
+A IA recebe junto a lista atual de personagens (só `id`, `nome`, apelidos e a última ficha), para reaproveitar os `id` e não criar duplicatas.
+
+### Limites
+
+Se um campo passar do limite, o gerador pede para reescrever só aquele campo, uma vez. Se passar de novo, aceita como está e marca em `checagem.limites`.
 
 ## Posição no texto
 

@@ -3,7 +3,8 @@
 ## Feito
 
 - [x] Teste de qualidade das IAs com *Dom Casmurro* no modo livro inteiro ([resultado](teste-dom-casmurro.md))
-- [x] Prompt v2, corrigido a partir dos erros do teste ([prompt](../prompts/memoria-livro-inteiro.md))
+- [x] Prompt v2, corrigido a partir dos erros do teste, e segunda rodada do Claude com ele ([resultado](teste-dom-casmurro.md#rodada-2-prompt-v2))
+- [x] Formato da memória com lista única de personagens ([formato](formato-memoria.md))
 - [x] Documentação inicial
 
 ## 1. "Quem é esse?" sem IA
@@ -23,7 +24,8 @@ A primeira função, sem depender de nada externo.
 - [ ] Gravar e ler o `memoria.json` na pasta `.sdr`
 - [ ] Serviço de IA: Claude primeiro, com interface comum para os outros
 - [ ] Geração aos poucos, à frente da leitura, só com Wi-Fi e bateria suficiente
-- [ ] Checagem de spoiler de nomes, com nova tentativa
+- [ ] Prompt v3 para o modo aos poucos, já no formato da lista única de personagens
+- [ ] Checagem de spoiler de nomes e de limites de palavras, com nova tentativa só do que falhou
 - [ ] Rodar o modo aos poucos com *Dom Casmurro* e comparar com o teste do livro inteiro
 
 ## 3. Telas que usam a memória

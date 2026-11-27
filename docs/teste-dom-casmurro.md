@@ -43,6 +43,36 @@ Feito em 26/11/2026, antes de escrever o plugin, para escolher a IA e calibrar o
 3. **A Gemini não está descartada:** o problema do resumo acumulado deve sumir no modo aos poucos, em que cada pedido recebe a memória anterior. Testar quando o gerador existir.
 4. **A checagem de "palavras do futuro" não serviu:** deu de 140 a 176 alertas, quase todos vocabulário comum. Candidata a ser trocada por um modelo de decisão barato que responda "isto revela algo que ainda não aconteceu?".
 
+## Rodada 2: prompt v2
+
+Mesmo livro, mesmos 10 blocos sorteados, só com o Claude. A memória não foi editada depois de escrita, nem para caber no limite de palavras. Os revisores desta rodada também checaram se o resumo acumula e se os apelidos se mantêm, então a revisão foi um pouco mais rigorosa.
+
+| Critério | Claude, prompt v1 | Claude, prompt v2 |
+|---|---|---|
+| Spoilers de nome / de enredo | 0 / 0 | 0 / 0 |
+| Blocos sem erro (de 10) | 6 | 3, mais 2 com só um detalhe |
+| Erros leves | 5 | 12 |
+| Erros graves | 0 | 0 |
+| Omissão do fato principal | 0 | 0 |
+| Limites de palavras estourados | 5 (enxugados antes da checagem) | 30 (`resumo_ate_aqui` até 140 palavras) |
+| `resumo_ate_aqui` acumula | sim | sim |
+| Apelidos | mantidos | mais completos, mas somem quando a pessoa sai das fichas |
+| Português (1 a 5) | 5 | 4 e 5 |
+| Tempo | cerca de 7 min | cerca de 7 min |
+
+**Melhorou:** a atribuição (quem revela a viagem à Europa ficou certo), mais apelidos registrados e a ordem dos fatos no resumo do bloco.
+
+**Não melhorou:** inferir o lugar da morte a partir do lugar do enterro, mesmo com a regra que proíbe inventar lugar.
+
+**Piorou:** o limite de palavras. Resumir a história toda a cada bloco não cabe em 120 palavras.
+
+**Conclusão:** a qualidade do v2 é parecida com a do v1. O que sobrou é problema de formato, não de prompt, e levou a três mudanças:
+1. **Lista única de personagens** no `memoria.json`, que o plugin carrega adiante, em vez de 10 fichas por bloco ([formato](formato-memoria.md#personagens)).
+2. **`resumo_ate_aqui` com até 150 palavras.**
+3. **Checagem de limites** que pede para reescrever só o campo que estourou.
+
+O próximo prompt (v3) será escrito para o modo aos poucos, já nesse formato.
+
 ## Reproduzir
 
 ```

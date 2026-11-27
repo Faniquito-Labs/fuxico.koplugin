@@ -29,10 +29,10 @@ Princípios:
 O livro é dividido em **blocos**: capítulos inteiros agrupados até cerca de 2 mil palavras. Um capítulo muito longo vira mais de um bloco, cortado em fim de parágrafo.
 
 Para cada bloco, em ordem, a IA recebe:
-- a memória até o bloco anterior (resumo acumulado e fichas de personagens);
+- a memória até o bloco anterior (resumo acumulado e a lista de personagens já conhecidos, com a última ficha de cada um);
 - o texto do bloco.
 
-E devolve a memória até este bloco: `resumo_ate_aqui`, `resumo_do_bloco` e `personagens`. O prompt está em [prompts/](../prompts/).
+E devolve a memória até este bloco: `resumo_ate_aqui`, `resumo_do_bloco`, quem está presente e só os personagens novos ou com algo novo. O plugin junta isso numa lista única de personagens, que nunca perde ninguém (ver [formato-memoria.md](formato-memoria.md#personagens)). O prompt está em [prompts/](../prompts/).
 
 **Por que bloco a bloco, e não o livro inteiro de uma vez?** Porque a IA só vê o texto até aquele ponto, o que reduz o risco de spoiler, e porque o resumo acumulado sai melhor. No teste com *Dom Casmurro* (ver [teste-dom-casmurro.md](teste-dom-casmurro.md)), o modo livro inteiro funcionou bem no Claude, mas a Gemini não acumulou o resumo. O modo livro inteiro continua útil para gerar memórias de referência no PC.
 
@@ -72,6 +72,7 @@ Funciona sempre, como plano B. Só busca no texto do livro, no próprio Kindle. 
 Roda depois de gerar cada bloco, no Kindle ou no PC:
 
 - Todo nome e apelido citado na memória do bloco N precisa aparecer no texto até o bloco N. Se não aparecer, o bloco é refeito uma vez; se falhar de novo, o nome é removido e o bloco é marcado.
+- Todo campo precisa respeitar o limite de palavras. Se passar, só aquele campo é reescrito, uma vez.
 - Verificação de enredo (opcional, futura): um modelo barato de decisão responde "este resumo revela algo que não está no texto até aqui?".
 
 O script do teste (`checar.py`) é a primeira versão dessa checagem.
@@ -119,4 +120,4 @@ Pontos do KOReader a usar (a confirmar na implementação):
 - **PDF:** fora do escopo inicial (posição e texto funcionam diferente). Os manuais de jogos em PDF não usam o plugin.
 - **Livros com DRM** (comprados na Amazon): não abrem no KOReader, então ficam de fora.
 - **Livros sem capítulos:** viram blocos por contagem de palavras.
-- **Livros muito longos:** a memória cresce com o livro; o `resumo_ate_aqui` continua limitado a 120 palavras, então o começo vai sendo condensado.
+- **Livros muito longos:** a memória cresce com o livro; o `resumo_ate_aqui` continua limitado a 150 palavras, então o começo vai sendo condensado.

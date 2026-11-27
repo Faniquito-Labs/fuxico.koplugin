@@ -9,9 +9,9 @@ Em todas elas, a regra é a mesma: **nada depois da posição atual de leitura**
 **Como abre:** segurar o dedo sobre um nome e escolher "Quem é esse?" no menu de seleção.
 
 **Com memória:**
-- Procura o nome entre os nomes e apelidos das fichas do último bloco já lido.
-- Mostra o nome principal, os apelidos conhecidos até aqui e o "quem é até aqui".
-- Se o nome não estiver nas fichas, cai no modo sem IA.
+- Procura o nome na lista de personagens, entre os nomes e os apelidos já conhecidos até o último bloco lido.
+- Mostra o nome principal, os apelidos conhecidos até aqui e a ficha mais recente. Funciona também para quem sumiu da história há vários capítulos.
+- Se o nome não estiver na lista, cai no modo sem IA.
 
 **Sem IA:**
 - Primeira aparição do nome no livro, com a frase em volta e o capítulo.
@@ -30,7 +30,7 @@ Em todas elas, a regra é a mesma: **nada depois da posição atual de leitura**
 
 **Como abre:** menu do plugin, ou um toque no canto da tela (configurável).
 
-**Com memória:** lista as fichas do bloco atual, com a descrição de cada personagem até aqui.
+**Com memória:** lista os personagens presentes no bloco atual, com a ficha mais recente de cada um.
 
 **Sem IA:** detecta palavras com letra maiúscula no meio da frase, do início do capítulo até a posição atual, e lista as mais frequentes. Ignora palavras comuns em início de frase e uma lista de palavras que não são nomes (dias da semana, meses, "Deus", "Senhor"...).
 
