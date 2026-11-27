@@ -55,4 +55,6 @@ Kindle básico de 10ª geração (2019): 512 MB de RAM, processador de 1 GHz, te
 
 ## Licença
 
-A definir.
+O código é distribuído sob a [GNU Affero General Public License v3.0](LICENSE) (AGPL-3.0), a mesma do KOReader. Você pode usar, estudar, modificar e distribuir; versões modificadas, inclusive as oferecidas como serviço pela internet, precisam ter o código aberto sob a mesma licença.
+
+As memórias geradas (resumos e fichas) não são código e terão licença própria quando a base compartilhada existir.
