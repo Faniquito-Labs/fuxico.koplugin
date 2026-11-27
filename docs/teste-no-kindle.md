@@ -7,7 +7,7 @@ O que conferir no aparelho de verdade antes de dar a etapa 1 por encerrada. O te
 ## Preparar
 
 1. Copiar a pasta do repositório para `koreader/plugins/fuxico.koplugin` (sem `.git`).
-2. Reiniciar o KOReader e conferir que **Ferramentas › Fuxico** aparece.
+2. Reiniciar o KOReader, **abrir um livro** e conferir que **Ferramentas › Fuxico** aparece. O menu só existe com um livro aberto (na lista de arquivos não aparece) e fica no fim da aba Ferramentas, que pode ter mais de uma página.
 3. Ter à mão três livros EPUB:
    - um romance curto com nomes repetidos (por exemplo, *Dom Casmurro*);
    - um livro grande, de 1.000 páginas ou mais;
@@ -68,7 +68,7 @@ Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funci
 
 ### Tradução
 
-- [ ] Toda a interface do Fuxico aparece em português, inclusive o nome e a descrição na lista de plugins.
+- [ ] Toda a interface do Fuxico aparece em português, inclusive o nome e a descrição na lista de plugins. Se aparecer em inglês, procurar "Fuxico: tradução" no `koreader/crash.log`.
 - [ ] Os plurais estão certos ("1 menção", "2 menções", "há 1 página").
 
 ### Casos difíceis
@@ -83,3 +83,13 @@ Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funci
 - Anotar o resultado numa seção nova neste arquivo, com a data e a versão do KOReader.
 - Abrir um item no roteiro para cada ❌ e cada ⚠️ que precise de correção.
 - Se tudo passar, marcar o teste no Kindle no [roteiro](roteiro.md) e encerrar a etapa 1.
+
+## Resultados
+
+### 27/11/2026 · KOReader v2026.07.2 · Fuxico 0.1.0
+
+Instalação. Primeira tentativa, ainda sem o checklist:
+
+- ⚠️ O menu não aparecia em Ferramentas. Na verdade só aparece com um livro aberto, e o passo 2 dizia o contrário. O passo foi corrigido.
+- ❌ Com o livro aberto, o menu apareceu em inglês ("Who is this?", "About and privacy"), embora o KOReader estivesse em `pt_BR` e o `.mo` estivesse instalado. A causa provável são outros plugins instalados no aparelho que substituem ou recarregam o `gettext`. A correção foi o catálogo de tradução próprio (veja a [arquitetura](arquitetura.md)), e a versão corrigida já foi instalada no Kindle. Falta confirmar no aparelho.
+

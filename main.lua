@@ -2,24 +2,8 @@ local InfoMessage = require("ui/widget/infomessage")
 local Trapper = require("ui/trapper")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
-local gettext = require("gettext")
 local util = require("util")
-local _ = gettext
-
-local function carregarTraducao(caminho)
-    local idioma = gettext.current_lang
-    if not idioma or idioma == "C" or idioma == "" then
-        return
-    end
-    local arquivo = string.format("%s/l10n/%s/fuxico.mo", caminho, idioma)
-    local f = io.open(arquivo, "r")
-    if f then
-        f:close()
-        gettext.loadMO(arquivo)
-    end
-end
-
-carregarTraducao(debug.getinfo(1, "S").source:match("^@(.*)/[^/]*$") or ".")
+local _ = require("fuxico/traducao")
 
 local Configuracoes = require("fuxico/configuracoes")
 local GavetaQuemE = require("fuxico/telas/gaveta_quem_e")

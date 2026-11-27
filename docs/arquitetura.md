@@ -98,8 +98,9 @@ O repositório é a própria pasta do plugin. `_meta.lua` e `main.lua` ficam na 
 ```
 fuxico.koplugin/
   _meta.lua                 nome, descrição e versão
-  main.lua                  carrega a tradução, registra o menu e o "Quem é esse?" na seleção, faz a busca
+  main.lua                  registra o menu e o "Quem é esse?" na seleção, faz a busca
   fuxico/
+    traducao.lua            catálogo de tradução próprio do plugin (lê o .mo)        (etapa 1)
     semia.lua               buscas do modo sem IA e a proteção de nomes próprios     (etapa 1)
     configuracoes.lua       configurações gerais, em fuxico.lua na pasta do KOReader (etapa 1)
     menu.lua                o menu em Ferramentas › Fuxico                           (etapa 1)
@@ -111,10 +112,14 @@ fuxico.koplugin/
     servicos/               um arquivo por serviço de IA                             (etapa 2)
   l10n/                     fuxico.pot e uma pasta por idioma (pt_BR/fuxico.po e .mo)
   ferramentas/l10n/         extrair.py (gera o .pot) e compilar.py (gera os .mo e confere a tradução)
-  ferramentas/testes/       testar.py: sintaxe de todo .lua e testes do semia.lua
+  ferramentas/testes/       testar.py: sintaxe de todo .lua e testes do semia.lua e do traducao.lua
 ```
 
 Os textos da interface são escritos em inglês no código, como no resto do KOReader, e traduzidos em `l10n/`. O português do Brasil é a tradução principal e tem de estar sempre completa (`compilar.py` falha se faltar algo).
+
+O Fuxico não usa a tradução global do KOReader. Todo arquivo usa `local _ = require("fuxico/traducao")`, que lê o `.mo` do plugin num catálogo só dele e, para o que não estiver lá, cai no `gettext` do KOReader. O idioma vem da configuração `language` do KOReader. Se não houver pasta para o idioma exato (`pt_PT`), tenta a do idioma base (`pt`); o resultado aparece no registro do KOReader como "Fuxico: tradução carregada de…".
+
+Motivo: no Kindle de teste, o Fuxico apareceu em inglês, embora no KOReader do computador estivesse em português. Lá havia outros plugins que substituem ou recarregam o módulo `gettext` (Zen OS, Customisable Sleep Screen, Z-Library, FineKo). Num cartão FAT, o KOReader carrega os plugins na ordem em que as pastas foram criadas, então o Fuxico, recém-copiado, era o último a carregar. Com o catálogo próprio, a ordem e o que os outros plugins fazem com o `gettext` deixam de importar. Bookshelf e Customisable Sleep Screen fazem o mesmo.
 
 A lógica (busca, proteção, leitura da memória) fica separada das telas, para o visual mudar sem mexer na busca.
 
@@ -126,7 +131,7 @@ Pontos do KOReader a usar. Os marcados com ✓ foram conferidos no código do KO
 - ✓ `ui.toc:getTocTitleByPage(xp)` dá o título do capítulo de uma ocorrência.
 - ✓ `ui.link:addCurrentLocationToStack()` seguido de `ui.rolling:onGotoXPointer(xp)` pula até uma menção guardando a posição para o "voltar" nativo.
 - ✓ `ui.menu:registerToMainMenu(plugin)` com `addToMainMenu(menu_items)` cria o menu do plugin.
-- ✓ Traduções do plugin carregadas com `gettext.loadMO(caminho)`, como faz o AnnotationSync.
+- ~~Traduções do plugin carregadas com `gettext.loadMO(caminho)`, como faz o AnnotationSync.~~ Trocado pelo catálogo próprio em `fuxico/traducao.lua`, porque outros plugins mexem no `gettext` global (veja acima).
 - Evento `onReaderReady` para checar a memória ao abrir o livro.
 - `NetworkMgr` para esperar o Wi-Fi.
 - `DocSettings` para achar a pasta `.sdr` do livro.

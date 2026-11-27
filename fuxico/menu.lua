@@ -2,7 +2,7 @@ local InfoMessage = require("ui/widget/infomessage")
 local SpinWidget = require("ui/widget/spinwidget")
 local UIManager = require("ui/uimanager")
 local T = require("ffi/util").template
-local _ = require("gettext")
+local _ = require("fuxico/traducao")
 local N_ = _.ngettext
 
 local Configuracoes = require("fuxico/configuracoes")

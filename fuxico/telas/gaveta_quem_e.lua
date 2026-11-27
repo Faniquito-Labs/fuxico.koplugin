@@ -15,7 +15,7 @@ local VerticalGroup = require("ui/widget/verticalgroup")
 local VerticalSpan = require("ui/widget/verticalspan")
 local Screen = Device.screen
 local T = require("ffi/util").template
-local _ = require("gettext")
+local _ = require("fuxico/traducao")
 local N_ = _.ngettext
 
 local Cartao = require("fuxico/componentes/cartao")

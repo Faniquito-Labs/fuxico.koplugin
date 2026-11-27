@@ -1,4 +1,5 @@
-"""Confere a sintaxe de todos os .lua e roda os testes da lógica sem IA (fuxico/semia.lua).
+"""Confere a sintaxe de todos os .lua e roda os testes da lógica sem IA (fuxico/semia.lua)
+e do catálogo de tradução próprio (fuxico/traducao.lua).
 
 Precisa do pacote lupa (Lua dentro do Python):
   python3 -m venv .venv && .venv/bin/pip install lupa
@@ -14,6 +15,7 @@ from lupa import lua51
 
 RAIZ = pathlib.Path(__file__).resolve().parents[2]
 TESTES = pathlib.Path(__file__).with_name("semia_spec.lua")
+TESTES_TRADUCAO = pathlib.Path(__file__).with_name("traducao_spec.lua")
 
 
 def conferir_sintaxe(lua):
@@ -42,7 +44,22 @@ def main():
     print(f"semia: {len(falhas)} falha(s)")
     for f in falhas:
         print("  " + f)
-    return 1 if erros or falhas else 0
+
+    lua.execute("""
+        package.preload["logger"] = function() return { info = function() end, warn = function() end } end
+        package.preload["gettext"] = function()
+            return setmetatable({
+                current_lang = "C",
+                ngettext = function(s, p, n) if n == 1 then return s end return p end,
+            }, { __call = function(_, s) return s end })
+        end
+    """)
+    falhas_traducao = lua.execute(TESTES_TRADUCAO.read_text(encoding="utf-8"), str(RAIZ))
+    falhas_traducao = list(falhas_traducao.values()) if falhas_traducao else []
+    print(f"tradução: {len(falhas_traducao)} falha(s)")
+    for f in falhas_traducao:
+        print("  " + f)
+    return 1 if erros or falhas or falhas_traducao else 0
 
 
 if __name__ == "__main__":

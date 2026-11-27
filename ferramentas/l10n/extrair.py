@@ -39,7 +39,8 @@ def po_string(s):
 def coletar():
     entradas = {}
     for arquivo in sorted(RAIZ.rglob("*.lua")):
-        if any(p.startswith(".") for p in arquivo.relative_to(RAIZ).parts):
+        partes = arquivo.relative_to(RAIZ).parts
+        if partes[0] == "ferramentas" or any(p.startswith(".") for p in partes):
             continue
         rel = arquivo.relative_to(RAIZ).as_posix()
         texto = arquivo.read_text(encoding="utf-8")
