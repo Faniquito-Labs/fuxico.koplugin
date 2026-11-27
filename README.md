@@ -15,9 +15,9 @@ Feito em português do Brasil, para livros em português.
 | Função | Com memória | Sem memória (sem IA) |
 |---|---|---|
 | **Quem é esse?** (segurar o dedo num nome) | Ficha do personagem até o ponto atual, com apelidos | Primeira aparição e últimas menções do nome até a página atual |
-| **Previamente em…** | Resumo de tudo o que aconteceu até aqui | Não disponível |
-| **X-Ray do capítulo** | Personagens do trecho, com descrição | Nomes com letra maiúscula mais citados |
-| **Onde você parou** | Resumo do último trecho lido | O último parágrafo lido |
+| **O que rolou?** | Resumo do que aconteceu até aqui, na medida do tempo parado | O trecho de antes da página e os nomes mais citados |
+| **Quem tá na cena?** | Personagens do trecho, com descrição | Nomes próprios mais citados no capítulo |
+| **Onde eu parei?** | Resumo do último trecho lido | O último parágrafo lido |
 
 Detalhes em [docs/funcoes.md](docs/funcoes.md).
 

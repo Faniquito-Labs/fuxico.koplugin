@@ -106,7 +106,7 @@ fuxico.koplugin/
   menu.lua              o menu em Ferramentas › Fuxico
   gerador.lua           divide em blocos e chama a IA (modo nuvem)
   servicos/             um arquivo por serviço de IA
-  telas/                as telas (gaveta, tela completa, Previamente em..., X-Ray, Onde você parou)
+  telas/                as telas (gaveta, tela completa, O que rolou?, Quem tá na cena?, Onde eu parei?)
   componentes/          peças visuais reaproveitadas (cartão, cartão da IA, linha do tempo, pílula)
   l10n/                 traduções (pt_BR como idioma principal)
 ```

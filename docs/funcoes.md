@@ -2,6 +2,8 @@
 
 Cada função tem duas versões: **com memória**, quando o livro tem um `memoria.json`, e **sem IA**, quando não tem (nenhuma IA configurada, sem Wi-Fi ou livro ainda não processado). O modo sem IA nunca escreve resumo; ele só mostra trechos do próprio livro, que nunca saem do Kindle.
 
+As funções têm nome de **pergunta que o leitor faz**: "Quem é esse?", "O que rolou?", "Quem tá na cena?" e "Onde eu parei?".
+
 Em todas elas, a regra é a mesma: **nada depois da posição atual de leitura**. A exceção é o modo releitura (ver [Memória deste livro](#memória-deste-livro)).
 
 O visual de cada tela segue os princípios de [design.md](design.md).
@@ -71,37 +73,51 @@ Se o nome não estiver na lista de personagens da memória, a gaveta cai na vers
 
 - **"Também se chama…"**: juntar à mão dois nomes da mesma pessoa no modo sem IA ("Capitu" e "Capitolina"), guardado nos dados do livro.
 
-## Previamente em…
+## O que rolou?
 
 *Desenho proposto em 27/11/2026, em discussão.*
 
+O resumo do que aconteceu até aqui, para quem volta ao livro depois de alguns dias.
+
 ### Como abre
 
-Pelo menu do plugin, por um gesto, ou sozinho ao abrir um livro parado há mais de N dias (configurável, desligado por padrão).
+- **Ao abrir um livro parado**, aparece um **aviso pequeno no topo**: "Faz 9 dias. Quer ver o que rolou?", com um botão "Ver". Ele some sozinho em alguns segundos, e a tela só abre se você tocar.
+- **Parada longa** (padrão: mais de 20 dias): a tela abre direto, sem aviso.
+- A qualquer momento, pelo menu (Ferramentas › Fuxico › O que rolou?) ou por um gesto. Nada se perde ao fechar: a memória fica no arquivo do livro, então reabrir é instantâneo e funciona sem internet.
 
-### Com memória
+### Na medida do tempo parado
 
-Tela própria, de cima para baixo:
+O tamanho do resumo acompanha há quanto tempo você não lê aquele livro. Os limites são configuráveis.
 
-1. "Previamente em…", o **título do livro** e uma linha com há quanto tempo, em que capítulo e em que percentual você parou.
-2. **"A história até aqui"** no cartão invertido: o `resumo_ate_aqui` do último bloco lido por inteiro, recolhido nas primeiras linhas, com "Ler tudo".
-3. **"Nos últimos capítulos":** os `resumo_do_bloco` dos dois ou três últimos blocos, numa linha do tempo vertical, marcando o trecho em que você está.
-4. **"Em cena":** pílulas com os personagens `presentes` no bloco atual. Tocar num nome abre a gaveta do "Quem é esse?".
-5. **"Você parou aqui":** o último parágrafo lido, como trecho do livro.
+- **Parada curta (até 3 dias):** um lembrete rápido na **gaveta**, com "O que rolou?", há quanto tempo, capítulo e percentual; o cartão da IA "Nos últimos capítulos" com os `resumo_do_bloco` dos últimos trechos, num texto só; as pílulas "Quem tá na cena?"; e os botões "Ver tudo" (abre a tela completa) e "Continuar".
+- **Parada média (4 a 20 dias):** a **tela completa**, com "A história até aqui" recolhida nas primeiras linhas e "Ler tudo".
+- **Parada longa (mais de 20 dias):** a tela completa, com "A história até aqui" já aberta por inteiro e mais trechos em "Nos últimos capítulos".
+
+### Tela completa (com memória)
+
+De cima para baixo:
+
+1. **"O que rolou?"**, o título do livro e uma linha com há quanto tempo, em que capítulo e em que percentual você parou.
+2. **"A história até aqui"** no cartão invertido: o `resumo_ate_aqui` do último bloco lido por inteiro.
+3. **"Nos últimos capítulos":** os `resumo_do_bloco` dos últimos blocos, numa linha do tempo vertical, marcando o trecho em que você está.
+4. **"Quem tá na cena?":** pílulas com os personagens `presentes` no bloco atual. Tocar num nome abre a gaveta do "Quem é esse?".
+5. **"Logo antes desta página":** os parágrafos da página anterior à atual, como trecho do livro. Não mostra a página atual, que você vai ver ao voltar; mostra o gancho da cena, que você não vê.
 6. Botão **"Continuar lendo"**.
 
 ### Sem IA
 
-Sem resumo, só o que dá para tirar do texto:
+Enxuta, só com o que dá para tirar do texto:
 
 1. O mesmo cabeçalho (título, há quanto tempo, capítulo, percentual).
-2. **"Você parou aqui":** um trecho maior antes da posição atual.
-3. **"Mais citados nos últimos capítulos":** pílulas com os nomes próprios mais frequentes, com a contagem.
-4. **"Capítulos recentes":** os títulos dos últimos capítulos, tocáveis.
-5. Com uma IA configurada, um convite para gerar a memória.
-6. Botão "Continuar lendo".
+2. **"Logo antes desta página":** um trecho maior antes da posição atual.
+3. **"Mais citados nos últimos capítulos":** pílulas com os nomes próprios mais frequentes, com a contagem, tocáveis como as de "Quem tá na cena?".
+4. Com uma IA configurada, um convite para gerar a memória.
+5. Botão "Continuar lendo".
 
-## X-Ray do capítulo
+## Quem tá na cena?
+
+Quem aparece no trecho em que você está, o antigo "X-Ray do capítulo".
+
 
 **Como abre:** menu do plugin, um gesto ou um toque no canto da tela (configurável).
 
@@ -109,7 +125,7 @@ Sem resumo, só o que dá para tirar do texto:
 
 **Sem IA:** detecta palavras com letra maiúscula no meio da frase, do início do capítulo até a posição atual, e lista as mais frequentes, com a mesma proteção do "Quem é esse?".
 
-## Onde você parou
+## Onde eu parei?
 
 **Como abre:** ao abrir o livro (configurável), pelo menu ou por um gesto.
 
@@ -139,16 +155,17 @@ A única seção que vale só para o livro aberto.
 - Mostrar a miniatura da linha do tempo (ligado).
 - Abrir direto a tela completa (desligado).
 
-### Previamente em…
+### O que rolou?
 
-- Abrir sozinho depois de: desligado, 3, 7 ou 14 dias parado.
+- Avisar ao abrir um livro parado há mais de: desligado, 1, 3 ou 7 dias.
+- Parada curta até: 3 dias. Parada longa a partir de: 20 dias (abre direto, sem aviso).
 - Ligar a um gesto (explica o caminho no Gerenciador de gestos do KOReader).
 
-### X-Ray
+### Quem tá na cena?
 
 - Ligar a um gesto ou a um canto da tela.
 
-### Onde você parou
+### Onde eu parei?
 
 - Abrir ao retomar a leitura (desligado).
 
@@ -172,7 +189,7 @@ A única seção que vale só para o livro aberto.
 O menu só mostra opções que já funcionam:
 - **Etapa 1:** Quem é esse? e Sobre e privacidade.
 - **Etapa 2:** entram Memória deste livro e Inteligência artificial.
-- **Etapa 3:** entram Previamente em…, X-Ray e Onde você parou.
+- **Etapa 3:** entram O que rolou?, Quem tá na cena? e Onde eu parei?.
 
 ### Onde ficam guardadas
 

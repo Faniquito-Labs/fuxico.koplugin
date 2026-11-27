@@ -71,7 +71,7 @@ Em ordem, sem buracos. Cada bloco tem a memória **de quem leu até o fim dele**
 - `capitulos`: primeiro e último capítulo do bloco, só para exibir.
 - `resumo_ate_aqui`: até 150 palavras, a história desde o início.
 - `resumo_do_bloco`: até 50 palavras, só o bloco.
-- `presentes`: `id` dos personagens que importam neste bloco. É o que o X-Ray mostra.
+- `presentes`: `id` dos personagens que importam neste bloco. É o que o "Quem tá na cena?" mostra.
 - `checagem`: resultado da checagem de spoiler e de limites.
 
 No modo nuvem, o arquivo é gravado aos poucos: só existem os blocos já gerados.
@@ -122,7 +122,7 @@ O número da página muda com a fonte e a margem, então a memória usa a posiç
 
 O processador no PC conhece o *spine* do EPUB e conta as palavras. No Kindle, o plugin converte a posição atual do KOReader para (fragmento, palavra) extraindo o texto do início do fragmento até a posição atual.
 
-**Qual bloco mostrar:** o último bloco cujo `fim` já ficou para trás. Se o leitor está no meio de um bloco, as telas usam o bloco anterior completo. *Previamente em…* pode acrescentar o resumo do bloco atual quando mais de 80% dele foi lido.
+**Qual bloco mostrar:** o último bloco cujo `fim` já ficou para trás. Se o leitor está no meio de um bloco, as telas usam o bloco anterior completo. *O que rolou?* pode acrescentar o resumo do bloco atual quando mais de 80% dele foi lido.
 
 *(A confirmar na implementação: se a contagem de palavras no Kindle bate com a do PC. A regra de contagem tem de ser a mesma dos dois lados: separar por espaço depois de tirar tags.)*
 
