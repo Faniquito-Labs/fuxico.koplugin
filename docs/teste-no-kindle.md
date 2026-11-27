@@ -15,6 +15,8 @@ O que conferir no aparelho de verdade antes de dar a etapa 1 por encerrada. O te
 
 ## Checklist
 
+> **Com o Zen OS instalado:** antes de começar, ligue **Mostrar outros itens** nas configurações do Zen OS, em Destacar / Consultar › Consulta e em Destacar / Consultar › Destaque. Sem isso o Zen OS esconde o botão do Fuxico.
+
 Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funcionou, com uma linha do que viu.
 
 ### Dicionário e menu de seleção
@@ -93,6 +95,7 @@ Instalação. Primeira tentativa, ainda sem o checklist:
 
 - ⚠️ O menu não aparecia em Ferramentas. Na verdade só aparece com um livro aberto, e o passo 2 dizia o contrário. O passo foi corrigido.
 - ❌ Com o livro aberto, o menu apareceu em inglês ("Who is this?", "About and privacy"), embora o KOReader estivesse em `pt_BR` e o `.mo` estivesse instalado. A causa provável são outros plugins instalados no aparelho que substituem ou recarregam o `gettext`. A correção foi o catálogo de tradução próprio (veja a [arquitetura](arquitetura.md)). ✅ Com ela, o menu apareceu em português.
-- ❌ Segurar o dedo num nome não mostrava o botão. Segurar numa palavra só abre direto o dicionário, não o menu de seleção, e o botão só existia no menu de seleção. O teste no computador não pegou o problema porque abria o menu de seleção direto. Agora o botão também aparece no dicionário, e o teste no computador passa por ele. Falta confirmar no aparelho, onde o Zen OS também mexe na janela do dicionário.
+- ❌ Segurar o dedo num nome não mostrava o botão. Segurar numa palavra só abre direto o dicionário, não o menu de seleção, e o botão só existia no menu de seleção. O teste no computador não pegou o problema porque abria o menu de seleção direto. Agora o botão também aparece no dicionário, e o teste no computador passa por ele. Falta confirmar no aparelho.
+- ⚠️ No Kindle de teste, o Zen OS esconde os botões de outros plugins no dicionário e no menu de seleção (`allow_unknown_items` desligado nas duas partes). O Fuxico não deve mudar a configuração de outro plugin, então a orientação foi para as docs: ligar **Mostrar outros itens** no Zen OS.
 - ⚠️ O item "Quem é esse?" nas configurações parecia a própria função. Virou Ajustes do "Quem é esse?".
 

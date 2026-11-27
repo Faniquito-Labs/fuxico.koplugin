@@ -16,6 +16,10 @@ O Fuxico acrescenta um botão **"Quem é esse?"** nos dois lugares em que o KORe
 - **No dicionário.** Segurar o dedo numa palavra só abre direto o dicionário (é o padrão do KOReader), e o botão fica numa linha própria embaixo dele.
 - **No menu de seleção** (Destacar, Copiar, Dicionário, Buscar...), que aparece ao arrastar para selecionar mais de uma palavra ("José Dias") ou quando o KOReader está configurado para abrir esse menu também numa palavra só.
 
+**Com o Zen OS:** o Zen OS troca o dicionário e o menu de seleção pelos dele e, por padrão, esconde os botões de outros plugins. Para o "Quem é esse?" aparecer, é preciso ligar **Mostrar outros itens** nas configurações do Zen OS, em Destacar / Consultar, nas duas partes:
+- em **Consulta**: o botão aparece embaixo dos ícones do dicionário;
+- em **Destaque**: o botão fica atrás do botão **Mais** do menu de seleção.
+
 ### Proteção: só em nomes próprios
 
 Duas camadas, para o botão não aparecer em palavras comuns:
