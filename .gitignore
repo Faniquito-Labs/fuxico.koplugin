@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Dados de teste (livros, respostas e chaves nunca entram no repositório)
+fonte/
+respostas/
+blocos.json
+livro-em-blocos.txt
+*.memoria.json
+.env
+
+# Sistema
+.DS_Store
+Thumbs.db
