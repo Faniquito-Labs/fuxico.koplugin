@@ -36,12 +36,16 @@ A primeira função, sem depender de nada externo.
 - [ ] Gerar só no Wi-Fi, só carregando ou com bateria mínima
 - [ ] Contador de uso no mês e limite mensal opcional
 - [x] Testar o prompt v3: rodar o modo aos poucos com *Dom Casmurro* e comparar com as rodadas do livro inteiro ([resultado](teste-dom-casmurro.md#rodada-3-prompt-v3-aos-poucos))
-- [ ] Testar o prompt v3.1 (fichas condensadas, quem entra na lista, personagens antigos sem ficha) e a Gemini no modo aos poucos
+- [x] Prompt v3.2: fios soltos ([prompt](../prompts/memoria-aos-poucos.md)), com o gerador do teste já preparado para o campo novo
+- [ ] Testar o prompt v3.2 (o v3.1 com fichas condensadas, quem entra na lista e personagens antigos sem ficha, mais os fios soltos) e a Gemini no modo aos poucos
 
 ## 3. Telas que usam a memória
 
 - [ ] "Quem é esse?" com ficha: tipo, apelidos, rodapé (atualizada em, primeira vez, aparece mais com) e histórico da ficha
 - [ ] O que rolou? (com e sem memória), na medida do tempo parado, com o aviso ao abrir um livro parado
+- [ ] "Da última vez você leu…" e "Na sua última sessão", a partir das estatísticas do KOReader
+- [ ] Fios soltos no O que rolou?
+- [ ] Botão "Começo do capítulo"
 - [ ] Quem tá na cena?
 - [ ] Onde eu parei?
 - [ ] Ações para o Gerenciador de gestos do KOReader
@@ -66,3 +70,4 @@ A primeira função, sem depender de nada externo.
 - [ ] Estante de Clássicos Brasileiros
 - [ ] Exportar e importar a memória de um livro
 - [ ] "Também se chama…": juntar nomes à mão no modo sem IA
+- [ ] Livro anterior da série no O que rolou?, e o "Quem é esse?" procurando também na memória do volume anterior

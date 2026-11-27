@@ -89,30 +89,46 @@ O resumo do que aconteceu até aqui, para quem volta ao livro depois de alguns d
 
 O tamanho do resumo acompanha há quanto tempo você não lê aquele livro. Os limites são configuráveis.
 
-- **Parada curta (até 3 dias):** um lembrete rápido na **gaveta**, com "O que rolou?", há quanto tempo, capítulo e percentual; o cartão da IA "Nos últimos capítulos" com os `resumo_do_bloco` dos últimos trechos, num texto só; as pílulas "Quem tá na cena?"; e os botões "Ver tudo" (abre a tela completa) e "Continuar".
+- **Parada curta (até 3 dias):** um lembrete rápido na **gaveta**, com "O que rolou?", há quanto tempo, capítulo e percentual; o cartão da IA "Nos últimos capítulos" com os resumos dos trechos da última sessão, num texto só; as pílulas "Quem tá na cena?"; e os botões "Ver tudo" (abre a tela completa) e "Continuar".
 - **Parada média (4 a 20 dias):** a **tela completa**, com "A história até aqui" recolhida nas primeiras linhas e "Ler tudo".
-- **Parada longa (mais de 20 dias):** a tela completa, com "A história até aqui" já aberta por inteiro e mais trechos em "Nos últimos capítulos".
+- **Parada longa (mais de 20 dias):** a tela completa, com "A história até aqui" já aberta por inteiro.
 
 ### Tela completa (com memória)
 
 De cima para baixo:
 
 1. **"O que rolou?"**, o título do livro e uma linha com há quanto tempo, em que capítulo e em que percentual você parou.
-2. **"A história até aqui"** no cartão invertido: o `resumo_ate_aqui` do último bloco lido por inteiro.
-3. **"Nos últimos capítulos":** os `resumo_do_bloco` dos últimos blocos, numa linha do tempo vertical, marcando o trecho em que você está.
-4. **"Quem tá na cena?":** pílulas com os personagens `presentes` no bloco atual. Tocar num nome abre a gaveta do "Quem é esse?".
-5. **"Logo antes desta página":** os parágrafos da página anterior à atual, como trecho do livro. Não mostra a página atual, que você vai ver ao voltar; mostra o gancho da cena, que você não vê.
-6. Botão **"Continuar lendo"**.
+2. **"Da última vez você leu do cap. XXVIII ao XXXII, em 40 min":** sai das estatísticas de leitura do KOReader, sem IA. Uma sessão é uma sequência de páginas lidas sem pausa longa (a definir na implementação, por exemplo 30 minutos). Sem estatísticas, a linha não aparece.
+3. **"A história até aqui"** no cartão invertido: o `resumo_ate_aqui` do último bloco lido por inteiro.
+4. **"Fios soltos"** no cartão invertido: os `fios_soltos` do último bloco lido, o que está em aberto (promessas, dúvidas, conflitos). É o que dá vontade de continuar. Memórias geradas antes do prompt v3.2 não têm o campo, e a seção não aparece.
+5. **"Na sua última sessão":** os `resumo_do_bloco` dos blocos que você leu na última sessão, numa linha do tempo vertical, marcando o trecho em que você está. Sem estatísticas, os dois ou três últimos blocos.
+6. **"Quem tá na cena?":** pílulas com os personagens `presentes` no bloco atual. Tocar num nome abre a gaveta do "Quem é esse?".
+7. **"Logo antes desta página":** os parágrafos da página anterior à atual, como trecho do livro. Não mostra a página atual, que você vai ver ao voltar; mostra o gancho da cena, que você não vê.
+8. Botões **"Começo do capítulo"**, que leva ao início do capítulo atual guardando a posição para o "voltar" (para quem prefere reler a ler resumo), e **"Continuar lendo"**.
 
 ### Sem IA
 
-Enxuta, só com o que dá para tirar do texto:
+Enxuta, só com o que dá para tirar do texto e das estatísticas:
 
-1. O mesmo cabeçalho (título, há quanto tempo, capítulo, percentual).
+1. O mesmo cabeçalho (título, há quanto tempo, capítulo, percentual) e a linha "Da última vez você leu…".
 2. **"Logo antes desta página":** um trecho maior antes da posição atual.
 3. **"Mais citados nos últimos capítulos":** pílulas com os nomes próprios mais frequentes, com a contagem, tocáveis como as de "Quem tá na cena?".
 4. Com uma IA configurada, um convite para gerar a memória.
-5. Botão "Continuar lendo".
+5. Botões "Começo do capítulo" e "Continuar lendo".
+
+### Livro anterior da série
+
+Ao começar um livro que é o volume 2 ou seguinte de uma série, se o volume anterior tiver memória, o "O que rolou?" mostra **"No livro anterior"**:
+
+- o título do volume anterior;
+- **"Como terminou":** o `resumo_do_bloco` do último bloco do volume anterior, no cartão da IA;
+- **"Fios soltos"** do último bloco do volume anterior;
+- **"Personagens do livro anterior":** os mais presentes no volume anterior, tocáveis para ver a última ficha de cada um;
+- o botão "Começar a ler".
+
+A série e o número vêm dos metadados do livro (o Calibre grava série e número no EPUB). *A confirmar na implementação: como achar o arquivo do volume anterior no Kindle (metadados do Calibre guardados pelo KOReader, histórico de leitura ou busca na pasta de livros).*
+
+Depois, já lendo o volume novo, o "Quem é esse?" pode procurar também na memória do volume anterior quando o nome ainda não apareceu na memória do atual.
 
 ## Quem tá na cena?
 
@@ -159,6 +175,7 @@ A única seção que vale só para o livro aberto.
 
 - Avisar ao abrir um livro parado há mais de: desligado, 1, 3 ou 7 dias.
 - Parada curta até: 3 dias. Parada longa a partir de: 20 dias (abre direto, sem aviso).
+- Mostrar o livro anterior da série (ligado).
 - Ligar a um gesto (explica o caminho no Gerenciador de gestos do KOReader).
 
 ### Quem tá na cena?

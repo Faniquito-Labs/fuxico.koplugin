@@ -33,6 +33,7 @@ Versão do formato: **1** (rascunho; ainda não há memória gerada neste format
       "capitulos": ["I", "V"],
       "resumo_ate_aqui": "…",
       "resumo_do_bloco": "…",
+      "fios_soltos": ["…", "…"],
       "presentes": ["bentinho", "jose-dias", "d-gloria", "capitu"],
       "checagem": { "spoiler_nome": 0, "limites": 0, "refeito": false }
     }
@@ -71,6 +72,7 @@ Em ordem, sem buracos. Cada bloco tem a memória **de quem leu até o fim dele**
 - `capitulos`: primeiro e último capítulo do bloco, só para exibir.
 - `resumo_ate_aqui`: até 150 palavras, a história desde o início.
 - `resumo_do_bloco`: até 50 palavras, só o bloco.
+- `fios_soltos`: até 3 itens de até 15 palavras, o que está em aberto na história até o fim do bloco (promessas, dúvidas, conflitos sem resposta). É a lista inteira naquele ponto, não só o que mudou. Mostrado no "O que rolou?". Entrou no prompt v3.2; memórias geradas antes não têm o campo.
 - `presentes`: `id` dos personagens que importam neste bloco. É o que o "Quem tá na cena?" mostra.
 - `checagem`: resultado da checagem de spoiler e de limites.
 
@@ -99,6 +101,7 @@ O plugin monta a lista cumulativa; a IA só devolve o que mudou:
   "bloco": 3,
   "resumo_ate_aqui": "…",
   "resumo_do_bloco": "…",
+  "fios_soltos": ["…"],
   "presentes": ["bentinho", "capitu", "padre-cabral"],
   "personagens_novos_ou_atualizados": [
     { "id": "bentinho", "apelidos_novos": ["Bento"], "quem_e_ate_aqui": "…" },
