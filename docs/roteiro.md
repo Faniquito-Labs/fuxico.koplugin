@@ -23,6 +23,7 @@ A primeira função, sem depender de nada externo. Os itens marcados funcionam n
 - [x] Ir até a menção guardando a posição para o "voltar" nativo
 - [x] Ferramentas de tradução (extrair e compilar) e testes da lógica sem IA
 - [x] Testar no KOReader do computador, com o teste automático de `ferramentas/testes/koreader/` (27/11/2026, KOReader para Mac v2026.07.2)
+- [ ] Fazer o botão "Quem é esse?" aparecer no Kindle com o Zen OS instalado (parado em 27/11/2026; veja [onde paramos](teste-no-kindle.md#onde-paramos))
 - [ ] Testar no Kindle 10ª geração, seguindo o [checklist do teste no Kindle](teste-no-kindle.md): menu de seleção, tempo de busca num livro de 1.000 páginas, gaveta e fantasma do cartão preto no e-ink, tela completa, ir e voltar, menu, tradução e casos difíceis
 
 ## 2. Memória direto no Kindle

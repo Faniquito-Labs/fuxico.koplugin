@@ -98,4 +98,36 @@ Instalação. Primeira tentativa, ainda sem o checklist:
 - ❌ Segurar o dedo num nome não mostrava o botão. Segurar numa palavra só abre direto o dicionário, não o menu de seleção, e o botão só existia no menu de seleção. O teste no computador não pegou o problema porque abria o menu de seleção direto. Agora o botão também aparece no dicionário, e o teste no computador passa por ele. Falta confirmar no aparelho.
 - ⚠️ No Kindle de teste, o Zen OS esconde os botões de outros plugins no dicionário e no menu de seleção (`allow_unknown_items` desligado nas duas partes). O Fuxico não deve mudar a configuração de outro plugin, então a orientação foi para as docs: ligar **Mostrar outros itens** no Zen OS.
 - ⚠️ O item "Quem é esse?" nas configurações parecia a própria função. Virou Ajustes do "Quem é esse?".
+- ❌ Com a versão que põe o botão no dicionário instalada e **Mostrar outros itens** ligado no Zen OS, o botão **ainda não apareceu**. O teste parou aqui.
+
+#### Onde paramos
+
+**Funciona no Kindle:** o plugin carrega, o menu Ferramentas › Fuxico aparece com um livro aberto e a interface está em português.
+
+**Não funciona no Kindle:** o botão "Quem é esse?" não aparece ao selecionar um nome. Sem ele, o resto do checklist não dá para testar no aparelho. No KOReader do computador, sem o Zen OS, o botão aparece no dicionário e no menu de seleção, e o roteiro automático passa inteiro (14 fotos).
+
+**Instalado no Kindle:** o Fuxico do PR #4 (branch `fix/traducao-propria`, commit `20f2418`), com o catálogo de tradução próprio e o botão no dicionário.
+
+**Ambiente do Kindle:** KOReader v2026.07.2, `default_highlight_action = "ask"`, sem `highlight_action_on_single_word`, sem `dict_button_config` (botões do dicionário nunca personalizados). Plugins que mexem no dicionário ou no menu de seleção: Zen OS (`dict_quick_lookup` e `highlight_lookup` ligados), além de Page Scrubber (`floating_dict.lua`) e Inline Hints.
+
+#### O que ainda não sabemos
+
+- Se o botão falhou no dicionário, no menu de seleção (arrastando sobre "José Dias", atrás do **Mais**) ou nos dois.
+- Se o KOReader foi reiniciado depois de ligar **Mostrar outros itens**. O Zen OS lê a configuração na hora de montar a janela, mas não foi conferido.
+- Se o Fuxico deu algum erro: o `koreader/crash.log` não foi lido depois dessa tentativa.
+
+#### Hipóteses, da mais provável para a menos
+
+1. **O dicionário do Zen OS em "Encaixar embaixo" (bottom sheet, ligado por padrão) não passa pelo `buildButtonLayout`.** O código lido (`zenos.koplugin/modules/reader/patches/dict_quick_lookup.lua`, linhas 311 a 460) só preserva os botões desconhecidos nesse caminho. Se a janela embaixo for montada em outro lugar, o botão do Fuxico some. Teste: desligar "Encaixar embaixo" em Destacar / Consultar › Consulta e segurar num nome de novo.
+2. **A opção ligada não é a que vale.** `LookupPluginItems.shouldShow` (`modules/reader/lookup_plugin_items.lua`, linha 59) lê `config.dict_quick_lookup.allow_unknown_items` e `config.highlight_lookup.allow_unknown_items`. Teste: conferir as linhas 220 e 454 de `koreader/settings/ZenOS/config.lua`; as duas devem estar `true`.
+3. **Outro plugin abre a palavra antes do dicionário do KOReader.** Page Scrubber tem um dicionário flutuante e Inline Hints mexe na seleção. Teste: desligar um de cada vez em Gerenciamento de plugins.
+4. **O Fuxico registra o botão, mas a proteção recusa a palavra.** Pouco provável, porque no computador "Capitu" passa. Teste: desligar **Só em nomes próprios** e segurar em qualquer palavra.
+5. **O Fuxico não chega a registrar o botão no dicionário** (por exemplo, se o Zen OS trocar o `ui.dictionary`). Teste: procurar "Fuxico" e "fuxico" no `crash.log` e ver se há erro.
+
+#### Para continuar
+
+1. Ligar o Kindle no cabo e ler `koreader/crash.log` e `koreader/settings/ZenOS/config.lua` (hipóteses 2 e 5).
+2. No Kindle, testar em ordem: desligar "Encaixar embaixo" (1); arrastar sobre "José Dias" e abrir o **Mais** (descobre se o menu de seleção funciona); desligar **Só em nomes próprios** (4); desligar Page Scrubber e Inline Hints (3).
+3. Se for o Zen OS, ler o caminho do bottom sheet no `dict_quick_lookup.lua` dele e decidir: integrar o Fuxico do jeito que o Zen OS reconhece, oferecer outro acesso (por exemplo, um gesto ou um item no menu que use a palavra selecionada) ou só documentar.
+4. Com o botão aparecendo, retomar o checklist do começo.
 

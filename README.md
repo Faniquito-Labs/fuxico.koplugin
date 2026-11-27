@@ -8,7 +8,7 @@ Fuxico é um plugin para o [KOReader](https://github.com/koreader/koreader) que 
 
 Feito em português do Brasil, para livros em português.
 
-**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador; falta testar num Kindle, seguindo o [checklist do teste no Kindle](docs/teste-no-kindle.md). Veja o [roteiro](docs/roteiro.md).
+**Situação:** etapa 1 em andamento. O "Quem é esse?" sem IA funciona no KOReader do computador. No Kindle, o plugin carrega em português, mas o botão ainda não aparece ao selecionar um nome com o Zen OS instalado (veja [onde paramos](docs/teste-no-kindle.md#onde-paramos)). Veja o [roteiro](docs/roteiro.md).
 
 ## Instalar (para testar)
 
