@@ -13,8 +13,8 @@ msgstr ""
 msgid "Remembers the story for you: who is who, what happened and where you stopped, without spoilers."
 msgstr ""
 
-#: fuxico/menu.lua:33 main.lua:38
-msgid "Who is this?"
+#: fuxico/menu.lua:33
+msgid "“Who is this?” settings"
 msgstr ""
 
 #: fuxico/menu.lua:35
@@ -146,10 +146,14 @@ msgstr ""
 msgid "%1–%2 of %3"
 msgstr ""
 
-#: main.lua:62
+#: main.lua:41 main.lua:67
+msgid "Who is this?"
+msgstr ""
+
+#: main.lua:87
 msgid "Looking for mentions… (tap to cancel)"
 msgstr ""
 
-#: main.lua:68
+#: main.lua:93
 msgid "No mentions found up to this point."
 msgstr ""

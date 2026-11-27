@@ -15,9 +15,13 @@ msgstr "Fuxico"
 msgid "Remembers the story for you: who is who, what happened and where you stopped, without spoilers."
 msgstr "Lembra a história por você: quem é quem, o que rolou e onde você parou, sem spoiler."
 
-#: fuxico/menu.lua:33 main.lua:54
+#: main.lua:41 main.lua:67
 msgid "Who is this?"
 msgstr "Quem é esse?"
+
+#: fuxico/menu.lua:33
+msgid "“Who is this?” settings"
+msgstr "Ajustes do “Quem é esse?”"
 
 #: fuxico/menu.lua:35
 msgid "Only on proper names"

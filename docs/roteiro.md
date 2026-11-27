@@ -15,6 +15,7 @@ A primeira função, sem depender de nada externo. Os itens marcados funcionam n
 - [x] Esqueleto do plugin (`_meta.lua`, `main.lua`, tradução pt-BR)
 - [x] Menu inicial em Ferramentas › Fuxico: "Quem é esse?" e "Sobre e privacidade"
 - [x] "Quem é esse?" no menu de seleção de texto, com a camada 1 da proteção (só nomes próprios)
+- [x] "Quem é esse?" também no dicionário, que é o que abre ao segurar o dedo numa palavra só
 - [x] Busca de todas as menções até a posição atual, em segundo plano
 - [x] Camada 2 da proteção ("Não parece ser um nome", com Dicionário e Buscar)
 - [x] Gaveta sem memória: resumo, aviso de sumiço, miniatura da linha do tempo, última vez, primeira aparição

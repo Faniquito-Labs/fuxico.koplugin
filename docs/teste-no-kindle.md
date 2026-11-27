@@ -17,11 +17,12 @@ O que conferir no aparelho de verdade antes de dar a etapa 1 por encerrada. O te
 
 Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funcionou, com uma linha do que viu.
 
-### Menu de seleção
+### Dicionário e menu de seleção
 
-- [ ] Segurar o dedo num nome ("Capitu") mostra o botão **Quem é esse?**.
-- [ ] Segurar numa palavra comum ("cerca", "Então") **não** mostra o botão.
-- [ ] Nome composto ("José Dias") selecionado com o arraste mostra o botão.
+- [ ] Segurar o dedo num nome ("Capitu") abre o dicionário com o botão **Quem é esse?** embaixo.
+- [ ] Segurar numa palavra comum ("cerca", "Então") abre o dicionário **sem** o botão.
+- [ ] Tocar em **Quem é esse?** no dicionário fecha o dicionário e abre a gaveta.
+- [ ] Nome composto ("José Dias") selecionado com o arraste mostra o botão no menu de seleção.
 - [ ] Nome com acento ("Ângela", "Élio") mostra o botão.
 - [ ] Com **Só em nomes próprios** desligado, o botão aparece em qualquer palavra.
 
@@ -60,7 +61,7 @@ Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funci
 
 ### Menu e configurações
 
-- [ ] **Ferramentas › Fuxico › Quem é esse?** mostra as quatro opções, e cada uma muda o comportamento.
+- [ ] **Ferramentas › Fuxico › Ajustes do "Quem é esse?"** mostra as quatro opções, e cada uma muda o comportamento.
 - [ ] "Avisar quando sumiu por" abre o seletor de números, e o valor novo aparece no texto do item.
 - [ ] "Abrir direto a tela completa" pula a gaveta.
 - [ ] As opções continuam valendo depois de reiniciar o KOReader.
@@ -91,5 +92,7 @@ Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funci
 Instalação. Primeira tentativa, ainda sem o checklist:
 
 - ⚠️ O menu não aparecia em Ferramentas. Na verdade só aparece com um livro aberto, e o passo 2 dizia o contrário. O passo foi corrigido.
-- ❌ Com o livro aberto, o menu apareceu em inglês ("Who is this?", "About and privacy"), embora o KOReader estivesse em `pt_BR` e o `.mo` estivesse instalado. A causa provável são outros plugins instalados no aparelho que substituem ou recarregam o `gettext`. A correção foi o catálogo de tradução próprio (veja a [arquitetura](arquitetura.md)), e a versão corrigida já foi instalada no Kindle. Falta confirmar no aparelho.
+- ❌ Com o livro aberto, o menu apareceu em inglês ("Who is this?", "About and privacy"), embora o KOReader estivesse em `pt_BR` e o `.mo` estivesse instalado. A causa provável são outros plugins instalados no aparelho que substituem ou recarregam o `gettext`. A correção foi o catálogo de tradução próprio (veja a [arquitetura](arquitetura.md)). ✅ Com ela, o menu apareceu em português.
+- ❌ Segurar o dedo num nome não mostrava o botão. Segurar numa palavra só abre direto o dicionário, não o menu de seleção, e o botão só existia no menu de seleção. O teste no computador não pegou o problema porque abria o menu de seleção direto. Agora o botão também aparece no dicionário, e o teste no computador passa por ele. Falta confirmar no aparelho, onde o Zen OS também mexe na janela do dicionário.
+- ⚠️ O item "Quem é esse?" nas configurações parecia a própria função. Virou Ajustes do "Quem é esse?".
 

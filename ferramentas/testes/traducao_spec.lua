@@ -26,6 +26,6 @@ igual("en não carrega", _.carregar("en_US", RAIZ), false)
 local textos = _.lerMO(RAIZ .. "/l10n/pt_BR/fuxico.mo")
 local quantos = 0
 for _ in pairs(textos) do quantos = quantos + 1 end
-igual("todas as entradas lidas", quantos, 34)
+igual("todas as entradas lidas", quantos, 35)
 
 return falhas

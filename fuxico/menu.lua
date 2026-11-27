@@ -30,7 +30,7 @@ function Menu.itens(plugin)
         sorting_hint = "tools",
         sub_item_table = {
             {
-                text = _("Who is this?"),
+                text = _("“Who is this?” settings"),
                 sub_item_table = {
                     caixa(_("Only on proper names"), "so_nomes_proprios"),
                     {

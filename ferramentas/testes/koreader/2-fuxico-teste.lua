@@ -183,7 +183,7 @@ passo(4, function()
     if gaveta and gaveta.fechar then gaveta:fechar() end
     local ui = ReaderUI.instance
     local itens = ui.fuxico and require("fuxico/menu").itens(ui.fuxico)
-    log("menu", itens and itens.text, itens and #itens.sub_item_table)
+    log("menu", itens and itens.text, itens and #itens.sub_item_table, itens and itens.sub_item_table[1].text)
     itens.sub_item_table[2].callback()
 end)
 
@@ -191,6 +191,49 @@ passo(2, function()
     foto("11-sobre")
     local janela = topo()
     if janela and janela.onClose then janela:onClose() end
+    local ui = ReaderUI.instance
+    ui:handleEvent(Event:new("GotoPage", estado.pagina))
+end)
+
+local function botaoNoDicionario(janela)
+    return janela and janela.button_table and janela.button_table:getButtonById("fuxico_quem_e")
+end
+
+local function abrirDicionario(palavra)
+    local ui = ReaderUI.instance
+    local r = primeiraAntesDaPagina(palavra, estado.pagina + 1)
+    ui.highlight.selected_text = { text = palavra, pos0 = r.start, pos1 = r["end"] }
+    ui.dictionary:onLookupWord(palavra, false, nil, ui.highlight)
+end
+
+passo(2, function()
+    abrirDicionario("cerca")
+end)
+
+passo(3, function()
+    foto("12-dicionario-cerca")
+    local janela = topo()
+    log("dicionário de cerca", janela and janela.word, "botão", botaoNoDicionario(janela) ~= nil)
+    if janela and janela.onClose then janela:onClose() end
+end)
+
+passo(2, function()
+    abrirDicionario("Capitu")
+end)
+
+passo(3, function()
+    foto("13-dicionario-capitu")
+    local janela = topo()
+    local botao = botaoNoDicionario(janela)
+    log("dicionário de Capitu", janela and janela.word, "botão", botao and botao.text)
+    if botao then botao.callback() end
+end)
+
+passo(5, function()
+    foto("14-gaveta-pelo-dicionario")
+    local gaveta = topo()
+    log("gaveta pelo dicionário", gaveta and gaveta.resultado and gaveta.resultado.total)
+    if gaveta and gaveta.fechar then gaveta:fechar() end
 end)
 
 if os.getenv("FUXICO_TESTE_SAIDA") then
