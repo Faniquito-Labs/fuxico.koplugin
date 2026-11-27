@@ -26,7 +26,8 @@ A primeira função, sem depender de nada externo.
 - [ ] Geração aos poucos, à frente da leitura, só com Wi-Fi e bateria suficiente
 - [x] Prompt v3 para o modo aos poucos, já no formato da lista única de personagens ([prompt](../prompts/memoria-aos-poucos.md))
 - [ ] Checagem de spoiler de nomes e de limites de palavras, com nova tentativa só do que falhou
-- [ ] Testar o prompt v3: rodar o modo aos poucos com *Dom Casmurro* e comparar com as rodadas do livro inteiro
+- [x] Testar o prompt v3: rodar o modo aos poucos com *Dom Casmurro* e comparar com as rodadas do livro inteiro ([resultado](teste-dom-casmurro.md#rodada-3-prompt-v3-aos-poucos))
+- [ ] Testar o prompt v3.1 (fichas condensadas, quem entra na lista, personagens antigos sem ficha) e a Gemini no modo aos poucos
 
 ## 3. Telas que usam a memória
 

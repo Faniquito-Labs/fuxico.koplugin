@@ -41,7 +41,7 @@ Arquitetura completa em [docs/arquitetura.md](docs/arquitetura.md).
 - [Formato da memória](docs/formato-memoria.md): o `memoria.json`, posição no texto e a chave do livro
 - [Base compartilhada](docs/base-compartilhada.md): ideia de um servidor com memórias prontas, direito autoral e privacidade
 - [Teste com Dom Casmurro](docs/teste-dom-casmurro.md): comparação entre IAs que definiu o prompt
-- Prompts enviados à IA: [aos poucos (v3, padrão)](prompts/memoria-aos-poucos.md) e [livro inteiro (v2)](prompts/memoria-livro-inteiro.md)
+- Prompts enviados à IA: [aos poucos (v3.1, padrão)](prompts/memoria-aos-poucos.md) e [livro inteiro (v2)](prompts/memoria-livro-inteiro.md)
 - [Roteiro](docs/roteiro.md): as etapas, da primeira função ao acabamento
 
 ## Privacidade

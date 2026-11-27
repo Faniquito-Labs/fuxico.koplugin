@@ -107,7 +107,7 @@ O plugin monta a lista cumulativa; a IA só devolve o que mudou:
 }
 ```
 
-A IA recebe junto a lista atual de personagens (só `id`, `nome`, apelidos e a última ficha), para reaproveitar os `id` e não criar duplicatas.
+A IA recebe junto a lista atual de personagens (só `id`, `nome`, apelidos e a última ficha), para reaproveitar os `id` e não criar duplicatas. Acima de 30 personagens, os 30 mais recentes vão com a ficha e os outros só com `id`, `nome` e apelidos: assim quem volta à história depois de muito tempo não é recriado como novo.
 
 ### Limites
 
