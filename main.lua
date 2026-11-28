@@ -1,4 +1,5 @@
 local InfoMessage = require("ui/widget/infomessage")
+local T = require("ffi/util").template
 local Trapper = require("ui/trapper")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
@@ -7,6 +8,7 @@ local _ = require("fuxico/traducao")
 
 local Configuracoes = require("fuxico/configuracoes")
 local GavetaQuemE = require("fuxico/telas/gaveta_quem_e")
+local IntegracaoZen = require("fuxico/integracao_zen")
 local Menu = require("fuxico/menu")
 local Semia = require("fuxico/semia")
 local TelaMencoes = require("fuxico/telas/tela_mencoes")
@@ -26,6 +28,12 @@ function Fuxico:init()
     if self.ui.dictionary and self.ui.dictionary.addToDictButtons then
         self.ui.dictionary:addToDictButtons(self:_botaoDicionario())
     end
+    -- O Zen OS pode carregar depois do Fuxico; onReaderReady tenta de novo.
+    IntegracaoZen.aplicar()
+end
+
+function Fuxico:onReaderReady()
+    IntegracaoZen.aplicar()
 end
 
 function Fuxico:addToMainMenu(menu_items)
@@ -82,9 +90,23 @@ end
 function Fuxico:quemE(texto, corte, forcar)
     Trapper:wrap(function()
         local documento = self.ui.document
+        -- Cartão no meio da tela, como os avisos do KOReader. Tocar nele cancela a busca.
+        local aviso = InfoMessage:new{
+            text = T(_("Looking for mentions of “%1”…\n\nTap to cancel."), texto),
+            show_icon = false,
+            alignment = "center",
+        }
+        UIManager:show(aviso)
+        UIManager:forceRePaint()
         local completo, resultados = Trapper:dismissableRunInSubprocess(function()
             return Semia.buscarNoLivro(documento, texto)
-        end, _("Looking for mentions… (tap to cancel)"))
+        end, aviso)
+        if completo then
+            -- O Trapper não fecha um aviso que não é dele. Tira o callback de cancelar antes
+            -- de fechar, senão fechar o aviso tentaria cancelar uma busca que já acabou.
+            aviso.dismiss_callback = nil
+            UIManager:close(aviso)
+        end
         if not completo then
             return
         end

@@ -146,14 +146,17 @@ msgstr ""
 msgid "%1–%2 of %3"
 msgstr ""
 
-#: main.lua:41 main.lua:67
+#: main.lua:49 main.lua:75
 msgid "Who is this?"
 msgstr ""
 
-#: main.lua:87
-msgid "Looking for mentions… (tap to cancel)"
+#: main.lua:95
+msgid ""
+"Looking for mentions of “%1”…\n"
+"\n"
+"Tap to cancel."
 msgstr ""
 
-#: main.lua:93
+#: main.lua:115
 msgid "No mentions found up to this point."
 msgstr ""

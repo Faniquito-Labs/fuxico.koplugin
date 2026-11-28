@@ -103,6 +103,7 @@ fuxico.koplugin/
     traducao.lua            catálogo de tradução próprio do plugin (lê o .mo)        (etapa 1)
     semia.lua               buscas do modo sem IA e a proteção de nomes próprios     (etapa 1)
     configuracoes.lua       configurações gerais, em fuxico.lua na pasta do KOReader (etapa 1)
+    integracao_zen.lua      faz o Zen OS mostrar o botão embaixo dos ícones          (etapa 1)
     menu.lua                o menu em Ferramentas › Fuxico                           (etapa 1)
     telas/                  gaveta_quem_e.lua e tela_mencoes.lua                     (etapa 1)
     componentes/            estilo, cartão e linha do tempo                          (etapa 1)
@@ -112,7 +113,7 @@ fuxico.koplugin/
     servicos/               um arquivo por serviço de IA                             (etapa 2)
   l10n/                     fuxico.pot e uma pasta por idioma (pt_BR/fuxico.po e .mo)
   ferramentas/l10n/         extrair.py (gera o .pot) e compilar.py (gera os .mo e confere a tradução)
-  ferramentas/testes/       testar.py: sintaxe de todo .lua e testes do semia.lua e do traducao.lua
+  ferramentas/testes/       testar.py: sintaxe de todo .lua e testes do semia.lua, do traducao.lua e da integração com o Zen OS
 ```
 
 Os textos da interface são escritos em inglês no código, como no resto do KOReader, e traduzidos em `l10n/`. O português do Brasil é a tradução principal e tem de estar sempre completa (`compilar.py` falha se faltar algo).
@@ -120,6 +121,17 @@ Os textos da interface são escritos em inglês no código, como no resto do KOR
 O Fuxico não usa a tradução global do KOReader. Todo arquivo usa `local _ = require("fuxico/traducao")`, que lê o `.mo` do plugin num catálogo só dele e, para o que não estiver lá, cai no `gettext` do KOReader. O idioma vem da configuração `language` do KOReader. Se não houver pasta para o idioma exato (`pt_PT`), tenta a do idioma base (`pt`); o resultado aparece no registro do KOReader como "Fuxico: tradução carregada de…".
 
 Motivo: no Kindle de teste, o Fuxico apareceu em inglês, embora no KOReader do computador estivesse em português. Lá havia outros plugins que substituem ou recarregam o módulo `gettext` (Zen OS, Customisable Sleep Screen, Z-Library, FineKo). Num cartão FAT, o KOReader carrega os plugins na ordem em que as pastas foram criadas, então o Fuxico, recém-copiado, era o último a carregar. Com o catálogo próprio, a ordem e o que os outros plugins fazem com o `gettext` deixam de importar. Bookshelf e Customisable Sleep Screen fazem o mesmo.
+
+### Integração com o Zen OS
+
+O [Zen OS](https://github.com/xZenLabs/zen-os) redesenha o dicionário e o menu de seleção como uma linha de ícones. Por padrão ele esconde os botões de plugins que não conhece. Com **Mostrar outros itens** ligado, mostra esses botões no dicionário numa linha de texto, mas no menu de seleção os deixa atrás de um botão **Mais** (⋮). Só três plugins que ele conhece (X-Ray, KOAssistant e AI Assistant) aparecem logo embaixo dos ícones.
+
+No teste no Kindle, o botão sumia por isso, e escondido no ⋮ ficava difícil de achar. Então `fuxico/integracao_zen.lua` faz o Fuxico se apresentar ao Zen OS como plugin conhecido. O Zen OS decide quem é conhecido em `modules/reader/lookup_plugin_items.lua`, pelas funções `settingForHighlightKey` e `settingForDictButton`. O Fuxico embrulha essas duas para responder `show_fuxico` quando o item é o "Quem é esse?", e deixa todas as outras respostas como estavam.
+
+- Com isso, o botão aparece embaixo dos ícones nos dois lugares, sem mexer em nenhuma opção do Zen OS. O Fuxico continua sem gravar nada na configuração de outro plugin.
+- A integração roda no `init` e de novo no `onReaderReady`, porque o Zen OS pode carregar depois do Fuxico.
+- Se o Zen OS não estiver instalado ou mudar esse módulo, nada acontece, e o botão volta a depender de **Mostrar outros itens**.
+- Conferido no código do Zen OS de 12/11/2026 (commit `0e54fca`). O caminho certo, a longo prazo, é o Zen OS ter um jeito oficial de reconhecer outros plugins.
 
 A lógica (busca, proteção, leitura da memória) fica separada das telas, para o visual mudar sem mexer na busca.
 
