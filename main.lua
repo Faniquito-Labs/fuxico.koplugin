@@ -1,4 +1,5 @@
 local InfoMessage = require("ui/widget/infomessage")
+local T = require("ffi/util").template
 local Trapper = require("ui/trapper")
 local UIManager = require("ui/uimanager")
 local WidgetContainer = require("ui/widget/container/widgetcontainer")
@@ -89,9 +90,23 @@ end
 function Fuxico:quemE(texto, corte, forcar)
     Trapper:wrap(function()
         local documento = self.ui.document
+        -- Cartão no meio da tela, como os avisos do KOReader. Tocar nele cancela a busca.
+        local aviso = InfoMessage:new{
+            text = T(_("Looking for mentions of “%1”…\n\nTap to cancel."), texto),
+            show_icon = false,
+            alignment = "center",
+        }
+        UIManager:show(aviso)
+        UIManager:forceRePaint()
         local completo, resultados = Trapper:dismissableRunInSubprocess(function()
             return Semia.buscarNoLivro(documento, texto)
-        end, _("Looking for mentions… (tap to cancel)"))
+        end, aviso)
+        if completo then
+            -- O Trapper não fecha um aviso que não é dele. Tira o callback de cancelar antes
+            -- de fechar, senão fechar o aviso tentaria cancelar uma busca que já acabou.
+            aviso.dismiss_callback = nil
+            UIManager:close(aviso)
+        end
         if not completo then
             return
         end

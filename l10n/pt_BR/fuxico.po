@@ -153,9 +153,15 @@ msgstr "Recentes"
 msgid "By chapter"
 msgstr "Por capítulo"
 
-#: main.lua:78
-msgid "Looking for mentions… (tap to cancel)"
-msgstr "Procurando menções… (toque para cancelar)"
+#: main.lua:85
+msgid ""
+"Looking for mentions of “%1”…\n"
+"\n"
+"Tap to cancel."
+msgstr ""
+"Procurando menções de “%1”…\n"
+"\n"
+"Toque para cancelar."
 
 #: main.lua:84
 msgid "No mentions found up to this point."
