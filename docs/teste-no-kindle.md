@@ -15,7 +15,7 @@ O que conferir no aparelho de verdade antes de dar a etapa 1 por encerrada. O te
 
 ## Checklist
 
-> **Com o Zen OS instalado:** antes de começar, ligue **Mostrar outros itens** nas configurações do Zen OS, em Destacar / Consultar › Consulta e em Destacar / Consultar › Destaque. Sem isso o Zen OS esconde o botão do Fuxico.
+> **Com o Zen OS instalado:** o Fuxico se apresenta ao Zen OS como plugin conhecido (veja a [arquitetura](arquitetura.md#integração-com-o-zen-os)), e o botão aparece logo embaixo dos ícones, no dicionário e no menu de seleção, sem mexer em nenhuma opção. Se não aparecer, procure "Fuxico" no `koreader/crash.log` e confira que a versão instalada tem `fuxico/integracao_zen.lua`.
 
 Anote em cada item: ✅ funcionou, ⚠️ funcionou com ressalva, ❌ não funcionou, com uma linha do que viu.
 
@@ -131,3 +131,9 @@ Instalação. Primeira tentativa, ainda sem o checklist:
 3. Se for o Zen OS, ler o caminho do bottom sheet no `dict_quick_lookup.lua` dele e decidir: integrar o Fuxico do jeito que o Zen OS reconhece, oferecer outro acesso (por exemplo, um gesto ou um item no menu que use a palavra selecionada) ou só documentar.
 4. Com o botão aparecendo, retomar o checklist do começo.
 
+
+#### Atualização: o botão aparece
+
+- ✅ A causa era a opção **Mostrar outros itens** do Zen OS: estava desligada em Destacar / Consultar › Consulta, embora as notas acima digam o contrário. Ligada, o "Quem é esse?" aparece no dicionário, numa linha de texto embaixo dos ícones. A hipótese 1 (o modo "encaixar embaixo") estava errada: ele só muda o desenho da janela.
+- ⚠️ No menu de seleção ("Edifício da Justiça"), com **Mostrar outros itens** ligado também em Destaque, o botão aparece, mas fica atrás do **Mais** (⋮). Funciona, porém escondido demais.
+- A correção foi a [integração com o Zen OS](arquitetura.md#integração-com-o-zen-os): o Fuxico se apresenta como plugin conhecido e o botão vai para baixo dos ícones nos dois lugares, sem depender da opção. Falta confirmar no aparelho.

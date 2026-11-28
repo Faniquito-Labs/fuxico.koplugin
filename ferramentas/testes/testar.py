@@ -16,6 +16,7 @@ from lupa import lua51
 RAIZ = pathlib.Path(__file__).resolve().parents[2]
 TESTES = pathlib.Path(__file__).with_name("semia_spec.lua")
 TESTES_TRADUCAO = pathlib.Path(__file__).with_name("traducao_spec.lua")
+TESTES_ZEN = pathlib.Path(__file__).with_name("integracao_zen_spec.lua")
 
 
 def conferir_sintaxe(lua):
@@ -59,7 +60,12 @@ def main():
     print(f"tradução: {len(falhas_traducao)} falha(s)")
     for f in falhas_traducao:
         print("  " + f)
-    return 1 if erros or falhas or falhas_traducao else 0
+    falhas_zen = lua.execute(TESTES_ZEN.read_text(encoding="utf-8"))
+    falhas_zen = list(falhas_zen.values()) if falhas_zen else []
+    print(f"integração com o Zen OS: {len(falhas_zen)} falha(s)")
+    for f in falhas_zen:
+        print("  " + f)
+    return 1 if erros or falhas or falhas_traducao or falhas_zen else 0
 
 
 if __name__ == "__main__":

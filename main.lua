@@ -7,6 +7,7 @@ local _ = require("fuxico/traducao")
 
 local Configuracoes = require("fuxico/configuracoes")
 local GavetaQuemE = require("fuxico/telas/gaveta_quem_e")
+local IntegracaoZen = require("fuxico/integracao_zen")
 local Menu = require("fuxico/menu")
 local Semia = require("fuxico/semia")
 local TelaMencoes = require("fuxico/telas/tela_mencoes")
@@ -26,6 +27,12 @@ function Fuxico:init()
     if self.ui.dictionary and self.ui.dictionary.addToDictButtons then
         self.ui.dictionary:addToDictButtons(self:_botaoDicionario())
     end
+    -- O Zen OS pode carregar depois do Fuxico; onReaderReady tenta de novo.
+    IntegracaoZen.aplicar()
+end
+
+function Fuxico:onReaderReady()
+    IntegracaoZen.aplicar()
 end
 
 function Fuxico:addToMainMenu(menu_items)
